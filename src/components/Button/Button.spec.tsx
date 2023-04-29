@@ -1,7 +1,6 @@
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { Button } from './Button';
+import { render, screen, userEvent } from '@/test/utils';
 
 describe('Button', () => {
   const onClick = vi.fn();
