@@ -5,11 +5,14 @@ import { createRoot } from 'react-dom/client';
 // eslint-disable-next-line import/no-unresolved
 import 'uno.css';
 import App from './App';
+import Providers from './providers';
 
 const container = document.getElementById('root');
 const root = createRoot(container as HTMLDivElement);
 root.render(
   <StrictMode>
-    <App />
+    <Providers>
+      <App />
+    </Providers>
   </StrictMode>,
 );
