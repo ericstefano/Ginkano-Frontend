@@ -3,11 +3,19 @@ import {
   RouteObject,
   RouterProvider,
 } from 'react-router-dom';
+import { MainContainer } from '@/layouts/';
+import { LoginForm } from '@/components/LoginForm';
 
 const routes: RouteObject[] = [
   {
     path: '/',
-    element: <div>Rota pública</div>,
+    element: <MainContainer />,
+    children: [
+      {
+        index: true,
+        element: <LoginForm />,
+      },
+    ],
   },
 ];
 

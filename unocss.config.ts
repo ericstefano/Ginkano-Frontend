@@ -12,7 +12,7 @@ export default defineConfig({
     presetWebFonts({
       provider: 'google',
       fonts: {
-        sans: ['Raleway:100,200,300,400,500,600,700'],
+        sans: ['Poppins:100,200,300,400,500,600,700'],
       },
     }),
   ],

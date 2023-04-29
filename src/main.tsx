@@ -1,3 +1,4 @@
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import '@unocss/reset/tailwind.css';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
@@ -13,6 +14,7 @@ root.render(
   <StrictMode>
     <Providers>
       <App />
+      <ReactQueryDevtools initialIsOpen={false} />
     </Providers>
   </StrictMode>,
 );

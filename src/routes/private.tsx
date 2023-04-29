@@ -3,11 +3,18 @@ import {
   RouteObject,
   RouterProvider,
 } from 'react-router-dom';
+import { MainLayout } from '@/layouts/';
 
 const routes: RouteObject[] = [
   {
     path: '/',
-    element: <div>Rota privada</div>,
+    element: <MainLayout />,
+    children: [
+      {
+        index: true,
+        element: <div>Rota privada!</div>,
+      },
+    ],
   },
 ];
 
