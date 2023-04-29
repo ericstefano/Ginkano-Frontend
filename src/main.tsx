@@ -6,10 +6,20 @@ import { createRoot } from 'react-dom/client';
 // eslint-disable-next-line import/no-unresolved
 import 'uno.css';
 import App from './App';
+import { API_MOCKING } from './constants';
 import Providers from './providers';
+
+const prepare = async (): Promise<void> => {
+  if (!API_MOCKING) return;
+  const { worker } = await import('../mocks/workers/dev');
+  worker.start({ onUnhandledRequest: 'bypass' });
+};
 
 const container = document.getElementById('root');
 const root = createRoot(container as HTMLDivElement);
+
+await prepare();
+
 root.render(
   <StrictMode>
     <Providers>

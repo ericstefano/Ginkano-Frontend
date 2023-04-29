@@ -3,8 +3,10 @@ import {
   RouteObject,
   RouterProvider,
 } from 'react-router-dom';
+import { lazy } from 'react';
 import { MainContainer } from '@/layouts/';
-import { LoginForm } from '@/components/LoginForm';
+
+const LazyLoginPage = lazy(() => import('@/pages/LoginPage'));
 
 const routes: RouteObject[] = [
   {
@@ -13,7 +15,7 @@ const routes: RouteObject[] = [
     children: [
       {
         index: true,
-        element: <LoginForm />,
+        element: <LazyLoginPage />,
       },
     ],
   },
