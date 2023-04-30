@@ -6,7 +6,7 @@ import {
 import { lazy } from 'react';
 import { MainContainer } from '@/layouts/';
 
-const LazyLoginPage = lazy(() => import('@/pages/LoginPage'));
+const LazyLoginPage = lazy(() => import('@/pages/LoginPage/LoginPage'));
 
 const routes: RouteObject[] = [
   {

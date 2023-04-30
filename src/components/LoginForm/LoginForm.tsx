@@ -1,11 +1,17 @@
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from 'react';
+import clsx from 'clsx';
 import { Input } from '../Input';
 import { PasswordInput } from '../PasswordInput';
 import { LoginFormData, loginFormSchema } from './LoginForm.schema';
+import { useAuthContext } from '@/contexts/auth';
 
 export const LoginForm = () => {
+  const [error, setError] = useState<Error | undefined>();
+  const { login } = useAuthContext();
+
   const {
     register,
     handleSubmit,
@@ -15,8 +21,12 @@ export const LoginForm = () => {
     defaultValues: { name: '', password: '' },
   });
 
-  const onSubmit = (data: LoginFormData) => {
-    console.log(data);
+  const onSubmit = async (data: LoginFormData) => {
+    try {
+      await login(data);
+    } catch (error) {
+      setError(new Error('Usuário ou senha inválidos'));
+    }
   };
 
   return (
@@ -34,17 +44,28 @@ export const LoginForm = () => {
         className='mb-3'
         {...register('name')}
         description={errors.name?.message}
-        error={!!errors.name}
+        error={!!errors.name || !!error}
       />
 
       <PasswordInput
         label='Senha'
         required
-        className='mb-10'
+        className={clsx({ 'mb-10': !error, 'mb-4': error })}
         {...register('password')}
         description={errors.password?.message}
         error={!!errors.password}
       />
+
+      {error ? (
+        <div
+          role='alert'
+          className='text-sm text-red-100 flex justify-center mb-6'
+        >
+          <span role='alert' className='bg-red-500 py-1.5 px-2 rounded-1 '>
+            {error?.message}
+          </span>
+        </div>
+      ) : null}
 
       <div className='flex justify-between items-center px-2'>
         <div className='leading-6 font-500 text-center'>

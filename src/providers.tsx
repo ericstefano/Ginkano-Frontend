@@ -5,6 +5,7 @@ import {
 } from '@tanstack/react-query';
 import { ReactNode, Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
+import { AuthProvider } from './contexts/auth';
 
 const Error = () => {
   return <div>erro!</div>;
@@ -27,7 +28,9 @@ export default function Providers({ children }: { children: ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       <ErrorBoundary fallback={<Error />}>
-        <Suspense fallback={<Loader />}>{children}</Suspense>
+        <Suspense fallback={<Loader />}>
+          <AuthProvider>{children}</AuthProvider>
+        </Suspense>
       </ErrorBoundary>
     </QueryClientProvider>
   );

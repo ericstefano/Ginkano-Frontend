@@ -3,8 +3,9 @@ import {
   RouteObject,
   RouterProvider,
 } from 'react-router-dom';
+import { lazy } from 'react';
 import { MainLayout } from '@/layouts/';
-
+const LazyMainPage = lazy(() => import('@/pages/MainPage/MainPage'));
 const routes: RouteObject[] = [
   {
     path: '/',
@@ -12,7 +13,7 @@ const routes: RouteObject[] = [
     children: [
       {
         index: true,
-        element: <div>Rota privada!</div>,
+        element: <LazyMainPage />,
       },
     ],
   },
