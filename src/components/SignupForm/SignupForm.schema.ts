@@ -14,7 +14,8 @@ export const registerFormSchema = z
       .trim(),
     username: z
       .string()
-      .min(3, 'O usuário deve conter pelo menos 3 caracteres.'),
+      .min(3, 'O usuário deve conter pelo menos 3 caracteres.')
+      .trim(),
     password: z
       .string()
       .trim()

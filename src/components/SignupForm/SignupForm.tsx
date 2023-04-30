@@ -101,7 +101,7 @@ export const SignupForm = () => {
             className='mb-8'
             onCheckedChange={field.onChange}
             name={field.name}
-            value={field.value}
+            value={field.value} // problema com booleano / string
             description={
               errors.conditions
                 ? 'O campo de termos e condições é obrigatório.'
