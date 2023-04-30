@@ -1,5 +1,6 @@
 import {
   createBrowserRouter,
+  Navigate,
   RouteObject,
   RouterProvider,
 } from 'react-router-dom';
@@ -16,6 +17,10 @@ const routes: RouteObject[] = [
         element: <LazyMainPage />,
       },
     ],
+  },
+  {
+    path: '/*',
+    element: <Navigate to='/' replace />,
   },
 ];
 

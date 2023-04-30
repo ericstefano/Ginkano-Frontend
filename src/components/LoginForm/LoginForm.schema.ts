@@ -1,13 +1,13 @@
 import { z } from 'zod';
 
 export const loginFormSchema = z.object({
-  name: z
+  username: z
     .string()
-    .nonempty({ message: 'O nome deve conter pelo menos um caracter.' })
+    .nonempty('O campo deve conter pelo menos 1 caracter.')
     .trim(),
   password: z
     .string()
-    .nonempty({ message: 'A senha deve conter pelo menos um caracter.' })
+    .nonempty('O campo deve conter pelo menos 1 caracter.')
     .trim(),
 });
 

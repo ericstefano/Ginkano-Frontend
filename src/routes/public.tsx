@@ -1,23 +1,26 @@
 import {
   createBrowserRouter,
+  Navigate,
   RouteObject,
   RouterProvider,
 } from 'react-router-dom';
 import { lazy } from 'react';
-import { MainContainer } from '@/layouts/';
 
 const LazyLoginPage = lazy(() => import('@/pages/LoginPage/LoginPage'));
+const LazySignupPage = lazy(() => import('@/pages/SignupPage/SignupPage'));
 
 const routes: RouteObject[] = [
   {
-    path: '/',
-    element: <MainContainer />,
-    children: [
-      {
-        index: true,
-        element: <LazyLoginPage />,
-      },
-    ],
+    path: '/signup',
+    element: <LazySignupPage />,
+  },
+  {
+    path: '/login',
+    element: <LazyLoginPage />,
+  },
+  {
+    path: '/*',
+    element: <Navigate to='/login' replace />,
   },
 ];
 

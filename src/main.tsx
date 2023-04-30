@@ -18,13 +18,14 @@ const prepare = async (): Promise<void> => {
 const container = document.getElementById('root');
 const root = createRoot(container as HTMLDivElement);
 
-await prepare();
-
-root.render(
-  <StrictMode>
-    <Providers>
-      <App />
-      <ReactQueryDevtools initialIsOpen={false} />
-    </Providers>
-  </StrictMode>,
+// eslint-disable-next-line promise/catch-or-return
+prepare().then(() =>
+  root.render(
+    <StrictMode>
+      <Providers>
+        <App />
+        <ReactQueryDevtools initialIsOpen={false} />
+      </Providers>
+    </StrictMode>,
+  ),
 );

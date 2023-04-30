@@ -9,7 +9,7 @@ export const auth = [
 
     const user = db.user.findFirst({
       where: {
-        username: { equals: body.name },
+        username: { equals: body.username },
         password: { equals: body.password },
       },
     });
@@ -19,7 +19,7 @@ export const auth = [
     }
 
     const FAKE_JWT_TOKEN = encode(
-      `${MOCK_JWT_SECRET},${body.name},${body.password}`,
+      `${MOCK_JWT_SECRET},${body.username},${body.password}`,
     );
 
     return res(

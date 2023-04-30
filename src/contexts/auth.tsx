@@ -52,9 +52,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const hasAnyToken = !!localToken || !!queryToken;
 
   const { data: user, isFetching } = useQuery({
+    retry: 0,
     queryKey: ['user', localToken || queryToken],
     queryFn: () =>
-      getUser({ token: (localToken as string) || (queryToken as string) }), // add invariant or type assert, token wont be undefined here because of enabled
+      getUser({ token: (localToken as string) || (queryToken as string) }), // adicionar tiny-invariant ou type assertion, token nunca será undefined aqui
     enabled: hasAnyToken,
   });
 

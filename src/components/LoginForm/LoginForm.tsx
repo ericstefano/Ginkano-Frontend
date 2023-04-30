@@ -18,7 +18,7 @@ export const LoginForm = () => {
     formState: { errors },
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginFormSchema),
-    defaultValues: { name: '', password: '' },
+    defaultValues: { username: '', password: '' },
   });
 
   const onSubmit = async (data: LoginFormData) => {
@@ -31,20 +31,20 @@ export const LoginForm = () => {
 
   return (
     <form
-      className=' bg-violet-700 w-lg flex p-10 rounded-4 shadow-lg flex flex-col'
+      className='bg-violet-700 md:w-lg w-md flex md:p-10 p-6 rounded-4 shadow-lg flex flex-col'
       onSubmit={handleSubmit(onSubmit)}
     >
-      <h1 className='text-5xl font-bold text-white mb-3 text-center drop-shadow'>
+      <h1 className='md:text-5xl text-4xl font-bold text-white mb-3 text-center drop-shadow'>
         Bem-vindo ao Ginkano!
       </h1>
 
       <Input
-        label='Nome'
+        label='Usuário'
         required
         className='mb-3'
-        {...register('name')}
-        description={errors.name?.message}
-        error={!!errors.name || !!error}
+        {...register('username')}
+        description={errors.username?.message}
+        error={!!errors.username || !!error}
       />
 
       <PasswordInput
@@ -59,9 +59,9 @@ export const LoginForm = () => {
       {error ? (
         <div
           role='alert'
-          className='text-sm text-red-100 flex justify-center mb-6'
+          className='text-sm text-red-100 flex justify-center md:mb-6 mb-4'
         >
-          <span role='alert' className='bg-red-500 py-1.5 px-2 rounded-1 '>
+          <span role='alert' className='bg-red-500 py-1.5 px-2 rounded-2'>
             {error?.message}
           </span>
         </div>
@@ -71,10 +71,10 @@ export const LoginForm = () => {
         <div className='leading-6 font-500 text-center'>
           <p className='text-gray-50 text-sm'>Não possui conta?</p>
           <Link
-            to='#'
+            to='/signup'
             className='cursor-pointer text-purple-50 underline text-lg transition-all hover:( drop-shadow-md text-violet-300)'
           >
-            Cadastre-se!
+            Cadastre-se
           </Link>
         </div>
         <button

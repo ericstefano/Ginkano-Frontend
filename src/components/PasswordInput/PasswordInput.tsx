@@ -21,7 +21,7 @@ export const PasswordInput = forwardRef<
       type={isShowingPassword ? 'text' : 'password'}
       rightAdornment={
         <button
-          className='h-8 w-8 flex self-center items-center p-1 justify-center hover:bg-violet-100 rounded-12 active:bg-violet-200 group transition mr-1'
+          className='h-8 w-8 flex self-center items-center p-1 justify-center hover:bg-violet-100 focus:bg-violet-100 rounded-12 group transition mr-1 transition-all duration-75 active:(scale-99 bg-violet-200) hover:(scale-102 shadow-md)'
           onClick={handleToggleShowingPassword}
           type='button'
         >

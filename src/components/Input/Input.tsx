@@ -37,10 +37,13 @@ export const Input = forwardRef<HTMLInputElement | null, InputProps>(
             </span>
           ) : undefined}
           <input
-            className={clsx('h-9 focus:outline-none bg-neutral-100 w-full', {
-              'rounded-l-2.5 pl-2': !leftAdornment,
-              'rounded-r-2.5 pr-2': !rightAdornment,
-            })}
+            className={clsx(
+              'h-9 bg-neutral-100 w-full focus-visible:(outline-violet-200 outline outline-2 outline-offset-2)',
+              {
+                'rounded-l-2.5 pl-2': !leftAdornment,
+                'rounded-r-2.5 pr-2': !rightAdornment,
+              },
+            )}
             id={id}
             ref={ref}
             {...props}

@@ -3,13 +3,13 @@ import { API_BASE_URL } from '@/constants';
 import { User } from '@/types/User';
 
 export type AuthResponseDto = { token: string };
-export type GetAuthParams = { name: string; password: string };
+export type GetAuthParams = { username: string; password: string };
 
 export const getAuth = async ({
-  name,
+  username,
   password,
 }: GetAuthParams): Promise<AuthResponseDto> => {
-  const res = await axios.post(`${API_BASE_URL}/auth`, { name, password });
+  const res = await axios.post(`${API_BASE_URL}/auth`, { username, password });
   return res.data;
 };
 
