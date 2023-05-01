@@ -52,8 +52,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const hasAnyToken = !!localToken || !!queryToken;
 
   const { data: user, isFetching } = useQuery({
-    retry: 0,
-    queryKey: ['user', localToken || queryToken],
+    retry: 3, // dando erro de cors, funciona após duas retries
+    queryKey: ['user', localToken, queryToken],
     queryFn: () =>
       getUser({ token: (localToken as string) || (queryToken as string) }), // adicionar tiny-invariant ou type assertion, token nunca será undefined aqui
     enabled: hasAnyToken,
