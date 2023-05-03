@@ -1,17 +1,22 @@
 import { z } from 'zod';
+import { capitalize } from '@/utils/string';
 
 export const registerFormSchema = z
   .object({
     firstname: z
       .string()
-      .trim()
       .min(3, 'O nome deve conter pelo menos 3 caracteres.')
-      .regex(/^[a-zA-Z\s]*$/, 'O nome deve conter somente letras.'), // melhorar validação para permitir somente uma palavra
+      .regex(/^[\p{L}\s]+$/u, 'O nome deve conter somente letras.')
+      .regex(/^\s*\p{L}+\s*$/u, 'O nome deve conter somente uma palavra.')
+      .trim()
+      .transform(capitalize),
     lastname: z
       .string()
       .min(3, 'O sobrenome deve conter pelo menos 3 caracteres.')
-      .regex(/^[a-zA-Z\s]*$/, 'O sobrenome deve conter somente letras.') // melhorar validação para permitir somente uma palavra
-      .trim(),
+      .regex(/^[\p{L}\s]+$/u, 'O sobrenome deve conter somente letras.')
+      .regex(/^\s*\p{L}+\s*$/u, 'O sobrenome deve conter somente uma palavra.')
+      .trim()
+      .transform(capitalize),
     username: z
       .string()
       .min(3, 'O usuário deve conter pelo menos 3 caracteres.')
@@ -23,11 +28,15 @@ export const registerFormSchema = z
       .regex(/[0-9]/, 'A senha deve conter pelo menos 1 caracter numérico.')
       .regex(/[A-Z]/, 'A senha deve conter pelo menos 1 caracter maiúsculo.')
       .regex(
-        /[ `!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/,
+        /[`!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/,
         'A senha deve conter pelo menos 1 caracter special.',
       ),
     confirm: z.string(),
-    conditions: z.literal<boolean>(true),
+    conditions: z.literal<boolean>(true, {
+      errorMap: () => ({
+        message: 'O campo de termos e condições é obrigatório.',
+      }),
+    }),
   })
   .refine((values) => values.password === values.confirm, {
     message: 'A senha e a confirmação devem ser iguais.',
