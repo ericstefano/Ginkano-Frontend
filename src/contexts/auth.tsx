@@ -14,6 +14,7 @@ import {
 import { useLocalStorage } from 'usehooks-ts';
 import { User } from '@/types/User';
 import { AuthResponseDto, getAuth, GetAuthParams, getUser } from '@/api/auth';
+import { SplashLoader } from '@/components/SplashLoader';
 
 type AuthContextValue = {
   user: User | undefined;
@@ -75,7 +76,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   );
 
   if (isFetching) {
-    return <div>carregando...</div>;
+    return <SplashLoader />;
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
