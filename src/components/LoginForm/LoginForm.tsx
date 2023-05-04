@@ -11,7 +11,6 @@ import { useAuthContext } from '@/contexts/auth';
 export const LoginForm = () => {
   const [error, setError] = useState<Error | undefined>();
   const { login } = useAuthContext();
-
   const {
     register,
     handleSubmit,
