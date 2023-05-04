@@ -37,7 +37,7 @@ export const Checkbox = ({
           htmlFor={id}
           className='text-gray-50 font-500 text-sm select-none'
         >
-          {label} <span className='text-red-300'> {required ? '*' : null}</span>
+          {label} <span className='text-red-300'>{required ? '*' : null}</span>
         </label>
       </div>
       {description ? (
