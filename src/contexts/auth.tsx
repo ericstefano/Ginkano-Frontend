@@ -55,7 +55,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const { data: user, isFetching } = useQuery({
     retry: 1,
     queryKey: [USER_QUERY_KEY, localToken],
-    queryFn: () => getUser(),
+    queryFn: getUser,
     enabled: hasLocalToken && !hasRemoteToken,
   });
 
