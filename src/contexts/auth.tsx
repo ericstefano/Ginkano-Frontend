@@ -9,12 +9,15 @@ import {
   UseMutateAsyncFunction,
   useMutation,
   useQuery,
-  useQueryClient,
 } from '@tanstack/react-query';
-import { useLocalStorage } from 'usehooks-ts';
-import { User } from '@/types/User';
-import { AuthResponseDto, getAuth, GetAuthParams, getUser } from '@/api/auth';
+import { User } from '@/types';
+import { AuthResponseDto, getAuth, GetAuthParams, getUser } from '@/api/user';
 import { SplashLoader } from '@/components/SplashLoader';
+import { getItem, removeItem, setItem } from '@/services/localStorage';
+import { LOCALSTORAGE_TOKEN_KEY } from '@/constants/keys';
+import { queryClient } from '@/providers';
+
+const USER_QUERY_KEY = 'user';
 
 type AuthContextValue = {
   user: User | undefined;
@@ -25,54 +28,51 @@ type AuthContextValue = {
     unknown
   >;
   logout: () => void;
+  isAuthLoading: boolean;
 };
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 
 type AuthProviderProps = { children: ReactNode };
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const queryClient = useQueryClient();
-
-  const [localToken, setToken] = useLocalStorage<string | undefined>(
-    'token',
-    undefined,
-  );
+  const localToken = getItem(LOCALSTORAGE_TOKEN_KEY);
 
   const {
     data: auth,
-    reset,
+    reset: resetAuthMutation,
     mutateAsync,
+    isLoading: isAuthLoading,
   } = useMutation({
     mutationFn: getAuth,
     onSuccess: (data) => {
-      setToken(data.token);
+      setItem(LOCALSTORAGE_TOKEN_KEY, data.jwtToken);
     },
   });
 
-  const queryToken = auth?.token;
-  const hasAnyToken = !!localToken || !!queryToken;
+  const hasLocalToken = !!localToken;
+  const hasRemoteToken = !!auth?.jwtToken;
 
   const { data: user, isFetching } = useQuery({
-    retry: 1, // dando erro de cors, funciona após uma retry no firefox
-    queryKey: ['user', localToken, queryToken],
-    queryFn: () =>
-      getUser({ token: (localToken as string) || (queryToken as string) }), // adicionar tiny-invariant ou type assertion, token nunca será undefined aqui
-    enabled: hasAnyToken,
+    retry: 1,
+    queryKey: [USER_QUERY_KEY, localToken],
+    queryFn: () => getUser(),
+    enabled: hasLocalToken && !hasRemoteToken,
   });
 
   const logout = useCallback(() => {
-    setToken(undefined);
+    removeItem(LOCALSTORAGE_TOKEN_KEY);
     queryClient.clear();
-    reset();
-  }, [queryClient, reset, setToken]);
+    resetAuthMutation();
+  }, [resetAuthMutation]);
 
   const value = useMemo(
     () => ({
-      user,
+      user: auth?.data || user,
+      isAuthLoading,
       login: mutateAsync,
       logout,
     }),
-    [logout, mutateAsync, user],
+    [auth?.data, user, isAuthLoading, mutateAsync, logout],
   );
 
   if (isFetching) {

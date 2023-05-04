@@ -1,6 +1,5 @@
 export type User = {
-  firstName: string;
-  lastName: string;
+  firstname: string;
+  lastname: string;
   username: string;
-  token: string;
 };

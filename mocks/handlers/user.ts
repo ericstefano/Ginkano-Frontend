@@ -2,9 +2,10 @@ import { rest } from 'msw';
 import { encode, decode } from 'js-base64';
 import { db } from '../data/db';
 import { getBaseUrl, MOCK_JWT_SECRET } from './utils';
+import { USER_AUTH_URL, USER_BASE_URL } from '@/api/user';
 
 export const auth = [
-  rest.post(getBaseUrl('/auth'), async (req, res, ctx) => {
+  rest.post(getBaseUrl(USER_AUTH_URL), async (req, res, ctx) => {
     const body = await req.json();
 
     const user = db.user.findFirst({
@@ -25,15 +26,19 @@ export const auth = [
     return res(
       ctx.status(200),
       ctx.json({
-        token: FAKE_JWT_TOKEN,
+        data: {
+          firstname: user.firstname,
+          lastname: user.lastname,
+          username: user.username,
+        },
+        jwtToken: FAKE_JWT_TOKEN,
       }),
     );
   }),
 
-  rest.post(getBaseUrl('/user'), async (req, res, ctx) => {
-    const body = await req.json();
-    const jwt = body.token;
-    const decodedjwt = decode(jwt);
+  rest.get(getBaseUrl(USER_BASE_URL), async (req, res, ctx) => {
+    const jwt = req.headers.get('authorization')?.replace('Bearer', '').trim();
+    const decodedjwt = decode(jwt as string);
     const [_secret, username, password] = decodedjwt.split(',');
 
     const user = db.user.findFirst({
@@ -51,8 +56,8 @@ export const auth = [
       ctx.status(200),
       ctx.json({
         username: user.username,
-        firstName: user.firstName,
-        lastName: user.lastName,
+        firstname: user.firstname,
+        lastname: user.lastname,
       }),
     );
   }),

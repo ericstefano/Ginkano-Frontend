@@ -6,7 +6,7 @@ import { createRoot } from 'react-dom/client';
 // eslint-disable-next-line import/no-unresolved
 import 'uno.css';
 import App from './App';
-import { API_MOCKING } from './constants';
+import { API_MOCKING } from './constants/environment';
 import Providers from './providers';
 
 const prepare = async (): Promise<void> => {

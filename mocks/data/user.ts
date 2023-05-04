@@ -5,7 +5,7 @@ export const userModel = {
     id: primaryKey(String),
     username: String,
     password: String,
-    firstName: String,
-    lastName: String,
+    firstname: String,
+    lastname: String,
   },
 };
