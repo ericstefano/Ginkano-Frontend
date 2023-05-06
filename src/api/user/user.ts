@@ -17,7 +17,9 @@ export type CreateUserParams = {
 };
 
 export async function createAuth(data: CreateUserParams): Promise<void> {
-  const res = await axios.post(`${API_BASE_URL}${USER_REGISTER_URL}`, data);
+  const res = await axios.post(`${API_BASE_URL}${USER_REGISTER_URL}`, {
+    headers: { ...data },
+  });
   return res.data;
 }
 
@@ -25,7 +27,11 @@ export type AuthResponseDto = { jwtToken: string; data: User };
 export type GetAuthParams = { username: string; password: string };
 
 export async function getAuth(data: GetAuthParams): Promise<AuthResponseDto> {
-  const res = await axios.post(`${API_BASE_URL}${USER_AUTH_URL}`, data);
+  const res = await axios.get(`${API_BASE_URL}${USER_AUTH_URL}`, {
+    headers: {
+      ...data,
+    },
+  });
   return res.data;
 }
 

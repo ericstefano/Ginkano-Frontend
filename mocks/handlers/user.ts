@@ -5,13 +5,18 @@ import { getBaseUrl, MOCK_JWT_SECRET } from './utils';
 import { USER_AUTH_URL, USER_BASE_URL, USER_REGISTER_URL } from '@/api/user';
 
 export const auth = [
-  rest.post(getBaseUrl(USER_AUTH_URL), async (req, res, ctx) => {
-    const body = await req.json();
+  rest.get(getBaseUrl(USER_AUTH_URL), async (req, res, ctx) => {
+    const username = req.headers.get('username');
+    const password = req.headers.get('password');
+
+    if (!username || !password) {
+      return res(ctx.status(401), ctx.json({ error: 'Bad request' }));
+    }
 
     const user = db.user.findFirst({
       where: {
-        username: { equals: body.username },
-        password: { equals: body.password },
+        username: { equals: username },
+        password: { equals: password },
       },
     });
 
@@ -19,9 +24,7 @@ export const auth = [
       return res(ctx.status(401), ctx.json({ error: 'Invalid credentials' }));
     }
 
-    const FAKE_JWT_TOKEN = encode(
-      `${MOCK_JWT_SECRET},${body.username},${body.password}`,
-    );
+    const FAKE_JWT_TOKEN = encode(`${MOCK_JWT_SECRET},${username},${password}`);
 
     return res(
       ctx.status(200),
@@ -37,11 +40,18 @@ export const auth = [
   }),
 
   rest.post(getBaseUrl(USER_REGISTER_URL), async (req, res, ctx) => {
-    const body = await req.json();
+    const username = req.headers.get('username');
+    const password = req.headers.get('password');
+    const firstname = req.headers.get('firstname');
+    const lastname = req.headers.get('lastname');
+
+    if (!username || !password || !firstname || !lastname) {
+      return res(ctx.status(401), ctx.json({ error: 'Bad request' }));
+    }
 
     const user = db.user.findFirst({
       where: {
-        username: { equals: body.username },
+        username: { equals: username },
       },
     });
 
@@ -50,12 +60,21 @@ export const auth = [
     }
 
     db.user.create({
-      firstname: body.firstname,
-      lastname: body.lastname,
-      username: body.username,
-      password: body.password,
+      firstname: firstname,
+      lastname: lastname,
+      username: username,
+      password: password,
     });
-    return res(ctx.status(200));
+
+    const FAKE_JWT_TOKEN = encode(`${MOCK_JWT_SECRET},${username},${password}`);
+
+    return res(
+      ctx.status(200),
+      ctx.json({
+        data: { firstname, lastname, username },
+        jwtToken: FAKE_JWT_TOKEN,
+      }),
+    );
   }),
 
   rest.get(getBaseUrl(USER_BASE_URL), async (req, res, ctx) => {
