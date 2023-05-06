@@ -17,9 +17,15 @@ export type CreateUserParams = {
 };
 
 export async function createAuth(data: CreateUserParams): Promise<void> {
-  const res = await axios.post(`${API_BASE_URL}${USER_REGISTER_URL}`, {
-    headers: { ...data },
-  });
+  const res = await axios.post(
+    `${API_BASE_URL}${USER_REGISTER_URL}`,
+    {},
+    {
+      headers: {
+        ...data,
+      },
+    },
+  );
   return res.data;
 }
 
