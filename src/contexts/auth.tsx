@@ -39,8 +39,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const {
     data: auth,
-    reset: resetAuthMutation,
-    mutateAsync,
+    reset: resetGetAuth,
+    mutateAsync: login,
     isLoading: isAuthLoading,
   } = useMutation({
     mutationFn: getAuth,
@@ -62,17 +62,17 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const logout = useCallback(() => {
     removeItem(LOCALSTORAGE_TOKEN_KEY);
     queryClient.clear();
-    resetAuthMutation();
-  }, [resetAuthMutation]);
+    resetGetAuth();
+  }, [resetGetAuth]);
 
   const value = useMemo(
     () => ({
       user: auth?.data || user,
       isAuthLoading,
-      login: mutateAsync,
+      login,
       logout,
     }),
-    [auth?.data, user, isAuthLoading, mutateAsync, logout],
+    [auth?.data, user, isAuthLoading, login, logout],
   );
 
   if (isFetching) {

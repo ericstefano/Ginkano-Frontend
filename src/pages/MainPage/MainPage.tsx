@@ -10,7 +10,7 @@ export default function MainPage() {
     <section className='mx-auto gap-4 py-8 px-6 lg:px-12 max-w-6xl'>
       <div className='flex justify-between items-center mb-1'>
         <h1 className='text-4xl <lg:text-3xl font-semibold'>
-          Bem-vindo ao Ginkano, {user?.firstname}!
+          Boas-vindas ao Ginkano, {user?.firstname}!
         </h1>
         <button
           onClick={() => logout()}

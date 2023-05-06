@@ -6,7 +6,6 @@ export const db = factory({
 });
 
 db.user.create({
-  id: '1',
   username: 'erig',
   password: 'Teste@123',
   firstname: 'Eric',
@@ -14,7 +13,6 @@ db.user.create({
 });
 
 db.user.create({
-  id: '2',
   username: 'tutu',
   password: 'Teste@123',
   firstname: 'Arthur',
@@ -22,7 +20,6 @@ db.user.create({
 });
 
 db.user.create({
-  id: '3',
   username: 'lua',
   password: 'Teste@123',
   firstname: 'Luan',
@@ -30,7 +27,6 @@ db.user.create({
 });
 
 db.user.create({
-  id: '4',
   username: 'hugao',
   password: 'Teste@123',
   firstname: 'Hugo',

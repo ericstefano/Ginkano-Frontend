@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
@@ -7,11 +7,12 @@ import { Input } from '../Input';
 import { PasswordInput } from '../PasswordInput';
 import { Checkbox } from '../Checkbox';
 import { RegisterFormData, registerFormSchema } from './SignupForm.schema';
-import { useAuthContext } from '@/contexts/auth';
+import { useRegisterUser } from './useRegisterUser';
 
 export const SignupForm = () => {
   const [error, setError] = useState<Error | undefined>();
-  const { login } = useAuthContext();
+  const { mutateAsync: createUser } = useRegisterUser();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -23,8 +24,25 @@ export const SignupForm = () => {
     defaultValues: { firstname: '', lastname: '', password: '', confirm: '' },
   });
 
-  const onSubmit = async (data: RegisterFormData) => {
-    console.log(data);
+  const onSubmit = async ({
+    conditions,
+    firstname,
+    lastname,
+    username,
+    password,
+  }: RegisterFormData) => {
+    try {
+      await createUser({
+        firstname,
+        lastname,
+        username,
+        password,
+        conditions: +conditions,
+      });
+      navigate('/login');
+    } catch (error) {
+      setError(new Error('error message to be defined'));
+    }
   };
 
   return (
@@ -38,35 +56,31 @@ export const SignupForm = () => {
 
       <Input
         label='Nome'
-        required
         className='mb-3'
         {...register('firstname')}
         description={errors.firstname?.message}
-        error={!!errors.firstname || !!error}
+        error={!!errors.firstname}
       />
 
       <Input
         label='Sobrenome'
-        required
         className='mb-3'
         {...register('lastname')}
         description={errors.lastname?.message}
-        error={!!errors.lastname || !!error}
+        error={!!errors.lastname}
       />
 
       <Input
         label='Usuário'
-        required
         className='mb-3'
         {...register('username')}
         description={errors.username?.message}
-        error={!!errors.username || !!error}
+        error={!!errors.username}
       />
 
       <PasswordInput
         label='Senha'
-        required
-        className={clsx({ 'mb-3': !error, 'mb-5': error })}
+        className='mb-3'
         {...register('password')}
         description={errors.password?.message}
         error={!!errors.password}
@@ -74,8 +88,7 @@ export const SignupForm = () => {
 
       <PasswordInput
         label='Confirmar senha'
-        required
-        className={clsx({ 'mb-4': !error, 'mb-5': error })}
+        className='mb-4'
         {...register('confirm')}
         description={errors.confirm?.message}
         error={!!errors.confirm}
@@ -86,7 +99,6 @@ export const SignupForm = () => {
         name='conditions'
         render={({ field }) => (
           <Checkbox
-            required
             label={
               <span>
                 Eu li e concordo com os{' '}
@@ -98,7 +110,7 @@ export const SignupForm = () => {
                 </Link>
               </span>
             }
-            className='mb-8'
+            className={clsx({ 'mb-4': error, 'mb-8': !error })}
             onCheckedChange={field.onChange}
             name={field.name}
             value={field.value} // problema com booleano | string
@@ -122,7 +134,7 @@ export const SignupForm = () => {
 
       <div className='flex justify-between items-center px-2'>
         <div className='leading-6 font-500 text-center'>
-          <p className='text-gray-50 text-sm'>Já possui conta?</p>
+          <p className='text-gray-50'>Já possui conta?</p>
           <Link
             to='/login'
             className='cursor-pointer text-purple-50 underline text-lg transition-all hover:( drop-shadow-md text-violet-300)'
