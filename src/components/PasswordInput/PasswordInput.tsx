@@ -26,9 +26,9 @@ export const PasswordInput = forwardRef<
           type='button'
         >
           {isShowingPassword ? (
-            <ClosedEye className='h-6 w-6 text-violet-600 group-hover:(text-violet-800)' />
-          ) : (
             <Eye className='h-6 w-6 text-violet-600 group-hover:(text-violet-800)' />
+          ) : (
+            <ClosedEye className='h-6 w-6 text-violet-600 group-hover:(text-violet-800)' />
           )}
         </button>
       }
