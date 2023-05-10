@@ -24,6 +24,7 @@ export const auth = [
     );
 
     return res(
+      ctx.delay(1000),
       ctx.status(200),
       ctx.json({
         data: {
@@ -55,7 +56,7 @@ export const auth = [
       username: body.username,
       password: body.password,
     });
-    return res(ctx.status(200));
+    return res(ctx.delay(1000), ctx.status(200));
   }),
 
   rest.get(getBaseUrl(USER_BASE_URL), async (req, res, ctx) => {

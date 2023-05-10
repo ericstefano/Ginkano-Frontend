@@ -5,12 +5,13 @@ import { useState } from 'react';
 import clsx from 'clsx';
 import { Input } from '../Input';
 import { PasswordInput } from '../PasswordInput';
+import { Button } from '../Button';
 import { LoginFormData, loginFormSchema } from './LoginForm.schema';
 import { useAuthContext } from '@/contexts/auth';
 
 export const LoginForm = () => {
   const [error, setError] = useState<Error | undefined>();
-  const { login } = useAuthContext();
+  const { login, isAuthLoading } = useAuthContext();
   const {
     register,
     handleSubmit,
@@ -69,17 +70,14 @@ export const LoginForm = () => {
           <p className='text-gray-50'>Não possui conta?</p>
           <Link
             to='/signup'
-            className='cursor-pointer text-purple-50 underline text-lg transition-all hover:( drop-shadow-md text-violet-300)'
+            className='cursor-pointer text-purple-50 underline text-lg transition-all hover:(drop-shadow-md text-violet-300)'
           >
             Cadastre-se
           </Link>
         </div>
-        <button
-          type='submit'
-          className='px-6 h-12 rounded-md font-600 uppercase shadow bg-violet-500 active:bg-violet-900 text-gray-50 transition-all active:(translate-y-0.5 scale-99) hover:(scale-103 shadow-md)'
-        >
+        <Button type='submit' loading={isAuthLoading}>
           Logar
-        </button>
+        </Button>
       </div>
     </form>
   );

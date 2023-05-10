@@ -56,7 +56,7 @@ export const Input = forwardRef<HTMLInputElement | null, InputProps>(
         </div>
         {description ? (
           <span
-            className={clsx('text-xs', {
+            className={clsx('text-xs select-none', {
               'text-red-300': error,
               'text-violet-200': !error,
             })}

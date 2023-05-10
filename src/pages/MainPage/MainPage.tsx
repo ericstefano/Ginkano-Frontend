@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { CreateCard } from '@/components/CreateCard';
 import { SchoolCard } from '@/components/SchoolCard';
 import { useAuthContext } from '@/contexts/auth';
+import { Button } from '@/components/Button';
 
 export default function MainPage() {
   const { logout, user } = useAuthContext();
@@ -12,12 +13,7 @@ export default function MainPage() {
         <h1 className='text-4xl <lg:text-3xl font-semibold'>
           Boas-vindas ao Ginkano, {user?.firstname}!
         </h1>
-        <button
-          onClick={() => logout()}
-          className='px-6 h-12 rounded-md font-600 uppercase shadow bg-violet-500 active:bg-violet-900 text-gray-50 transition-all active:(translate-y-0.5 scale-99) hover:(scale-103 shadow-md)'
-        >
-          Logout
-        </button>
+        <Button onClick={() => logout()}>Logout</Button>
       </div>
       <h2 className='mb-4 text-3xl <lg:text-2xl font-semibold'>Seus grupos:</h2>
       <div className='flex gap-4 flex-wrap <lg:justify-center'>

@@ -6,12 +6,13 @@ import clsx from 'clsx';
 import { Input } from '../Input';
 import { PasswordInput } from '../PasswordInput';
 import { Checkbox } from '../Checkbox';
+import { Button } from '../Button';
 import { RegisterFormData, registerFormSchema } from './SignupForm.schema';
 import { useRegisterUser } from './useRegisterUser';
 
 export const SignupForm = () => {
   const [error, setError] = useState<Error | undefined>();
-  const { mutateAsync: createUser } = useRegisterUser();
+  const { mutateAsync: createUser, isLoading } = useRegisterUser();
   const navigate = useNavigate();
 
   const {
@@ -142,12 +143,9 @@ export const SignupForm = () => {
             Logue-se
           </Link>
         </div>
-        <button
-          type='submit'
-          className='px-6 h-12 rounded-md font-600 uppercase shadow bg-violet-500 active:bg-violet-900 text-gray-50 transition-all active:(translate-y-0.5 scale-99) hover:(scale-103 shadow-md)'
-        >
+        <Button type='submit' loading={isLoading}>
           Cadastrar
-        </button>
+        </Button>
       </div>
     </form>
   );
