@@ -18,7 +18,7 @@ export const Toast = ({ t, message, color }: ToastProps) => {
         toastColors[color],
         { 'animate-slide-in-up animate-duration-100': t.visible },
         {
-          'animate-zoom-out animate-duration-500 animate-delay-0 invisible opacity-0 hidden duration-500':
+          'animate-slide-out-down animate-duration-500 animate-delay-0 invisible opacity-0 hidden duration-500':
             !t.visible,
         },
         'max-w-md w-full transition-all select-none',
