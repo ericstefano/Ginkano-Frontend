@@ -2,11 +2,12 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import '@unocss/reset/tailwind.css';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { Toaster } from 'react-hot-toast';
 // No unresolved for compile-time generated css
 // eslint-disable-next-line import/no-unresolved
 import 'uno.css';
 import App from './App';
-import { API_MOCKING } from './constants';
+import { API_MOCKING } from './constants/environment';
 import Providers from './providers';
 
 const prepare = async (): Promise<void> => {
@@ -25,6 +26,7 @@ prepare().then(() =>
       <Providers>
         <App />
         <ReactQueryDevtools initialIsOpen={false} />
+        <Toaster position='bottom-center' reverseOrder={false} />
       </Providers>
     </StrictMode>,
   ),

@@ -37,12 +37,12 @@ export const Checkbox = ({
           htmlFor={id}
           className='text-gray-50 font-500 text-sm select-none'
         >
-          {label} <span className='text-red-300'> {required ? '*' : null}</span>
+          {label} <span className='text-red-300'>{required ? '*' : null}</span>
         </label>
       </div>
       {description ? (
         <span
-          className={clsx('text-xs', {
+          className={clsx('text-xs select-none', {
             'text-red-300': error,
             'text-violet-200': !error,
           })}

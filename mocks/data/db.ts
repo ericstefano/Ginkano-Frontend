@@ -6,33 +6,29 @@ export const db = factory({
 });
 
 db.user.create({
-  id: '1',
   username: 'erig',
   password: 'Teste@123',
-  firstName: 'Eric',
-  lastName: 'Lima',
+  firstname: 'Eric',
+  lastname: 'Lima',
 });
 
 db.user.create({
-  id: '2',
   username: 'tutu',
   password: 'Teste@123',
-  firstName: 'Arthur',
-  lastName: 'Henrique',
+  firstname: 'Arthur',
+  lastname: 'Henrique',
 });
 
 db.user.create({
-  id: '3',
   username: 'lua',
   password: 'Teste@123',
-  firstName: 'Luan',
-  lastName: 'Otavio',
+  firstname: 'Luan',
+  lastname: 'Otavio',
 });
 
 db.user.create({
-  id: '4',
   username: 'hugao',
   password: 'Teste@123',
-  firstName: 'Hugo',
-  lastName: 'Guimarães',
+  firstname: 'Hugo',
+  lastname: 'Guimarães',
 });

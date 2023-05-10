@@ -7,6 +7,7 @@ import {
 import { lazy } from 'react';
 import { MainLayout } from '@/layouts/';
 const LazyMainPage = lazy(() => import('@/pages/MainPage/MainPage'));
+const LazySchoolPage = lazy(() => import('@/pages/SchoolPage/SchoolPage'));
 const routes: RouteObject[] = [
   {
     path: '/',
@@ -15,6 +16,10 @@ const routes: RouteObject[] = [
       {
         index: true,
         element: <LazyMainPage />,
+      },
+      {
+        path: '/school',
+        element: <LazySchoolPage />,
       },
     ],
   },

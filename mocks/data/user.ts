@@ -2,10 +2,9 @@ import { primaryKey } from '@mswjs/data';
 
 export const userModel = {
   user: {
-    id: primaryKey(String),
-    username: String,
+    username: primaryKey(String),
     password: String,
-    firstName: String,
-    lastName: String,
+    firstname: String,
+    lastname: String,
   },
 };

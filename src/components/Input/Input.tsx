@@ -28,7 +28,7 @@ export const Input = forwardRef<HTMLInputElement | null, InputProps>(
       <div className={clsx('flex flex-col', className)}>
         <label htmlFor={id} className='text-gray-50 font-500 mb-0.5'>
           {label}
-          <span className='text-red-300'> {required ? '*' : null}</span>
+          <span className='text-red-300'>{required ? '*' : null}</span>
         </label>
         <div className='flex mb-1'>
           {leftAdornment ? (
@@ -56,7 +56,7 @@ export const Input = forwardRef<HTMLInputElement | null, InputProps>(
         </div>
         {description ? (
           <span
-            className={clsx('text-xs', {
+            className={clsx('text-xs select-none', {
               'text-red-300': error,
               'text-violet-200': !error,
             })}
