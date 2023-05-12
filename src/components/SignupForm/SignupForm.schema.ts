@@ -7,14 +7,12 @@ export const registerFormSchema = z
       .string()
       .min(3, 'O nome deve conter pelo menos 3 caracteres.')
       .regex(/^[\p{L}\s]+$/u, 'O nome deve conter somente letras.')
-      .regex(/^\s*\p{L}+\s*$/u, 'O nome deve conter somente uma palavra.')
       .trim()
       .transform(capitalize),
     lastname: z
       .string()
       .min(3, 'O sobrenome deve conter pelo menos 3 caracteres.')
       .regex(/^[\p{L}\s]+$/u, 'O sobrenome deve conter somente letras.')
-      .regex(/^\s*\p{L}+\s*$/u, 'O sobrenome deve conter somente uma palavra.')
       .trim()
       .transform(capitalize),
     username: z

@@ -35,7 +35,7 @@ export const LoginForm = () => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <h1 className='md:text-5xl text-4xl font-bold text-white mb-3 text-center drop-shadow'>
-        Boas-vindas ao Ginkano!
+        Boas-vindas ao Ginkano
       </h1>
 
       <Input
