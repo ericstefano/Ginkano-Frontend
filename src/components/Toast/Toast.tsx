@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import toast, { Toast as ToastType } from 'react-hot-toast';
 import { X } from '../icons/X';
 
-type Colors = 'success' | 'error';
+export type Colors = 'success' | 'error';
 type ToastColors = Record<Colors, string>;
 const toastColors: ToastColors = {
   success: 'bg-green-500',

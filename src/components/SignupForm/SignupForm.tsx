@@ -1,8 +1,9 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import clsx from 'clsx';
+import { isAxiosError } from 'axios';
 import { Input } from '../Input';
 import { PasswordInput } from '../PasswordInput';
 import { Checkbox } from '../Checkbox';
@@ -12,8 +13,7 @@ import { useRegisterUser } from './useRegisterUser';
 
 export const SignupForm = () => {
   const [error, setError] = useState<Error | undefined>();
-  const { mutateAsync: createUser, isLoading } = useRegisterUser();
-  const navigate = useNavigate();
+  const { mutate: createUser, isLoading } = useRegisterUser();
 
   const {
     register,
@@ -25,25 +25,26 @@ export const SignupForm = () => {
     defaultValues: { firstname: '', lastname: '', password: '', confirm: '' },
   });
 
-  const onSubmit = async ({
-    conditions,
-    firstname,
-    lastname,
-    username,
-    password,
-  }: RegisterFormData) => {
-    try {
-      await createUser({
-        firstname,
-        lastname,
-        username,
-        password,
+  const onSubmit = ({ conditions, ...data }: RegisterFormData) => {
+    createUser(
+      {
+        ...data,
         conditions: +conditions,
-      });
-      navigate('/login');
-    } catch (error) {
-      setError(new Error('error message to be defined'));
-    }
+      },
+      {
+        onError: (error, { username }) => {
+          if (
+            isAxiosError(error) &&
+            error.response &&
+            error.response.status < 500
+          ) {
+            setError(
+              new Error(`O nome de usuário '${username}' já foi utilizado`),
+            );
+          }
+        },
+      },
+    );
   };
 
   return (
@@ -114,7 +115,7 @@ export const SignupForm = () => {
             className={clsx({ 'mb-4': error, 'mb-8': !error })}
             onCheckedChange={field.onChange}
             name={field.name}
-            value={field.value} // problema com booleano | string
+            value={field.value}
             description={errors.conditions?.message}
             error={!!errors.conditions}
             id={field.name}
