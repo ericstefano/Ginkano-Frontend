@@ -6,7 +6,7 @@ export default function SchoolPage() {
     <section className='mx-auto gap-4 py-8 px-6 lg:px-12 max-w-6xl'>
       <h1 className='text-4xl <lg:text-3xl font-semibold mb-2'>{schoolName}</h1>
 
-      <h2 className='mb-4 text-3xl <lg:text-2xl font-semibold'>Turmas:</h2>
+      <h2 className='mb-2 text-3xl <lg:text-2xl font-semibold'>Turmas:</h2>
       <div className='flex gap-4 flex-wrap <lg:justify-center'>
         <GroupCard
           title='Turma 101'
