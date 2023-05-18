@@ -42,7 +42,9 @@ const error = createToast('error', {
   role: 'alert',
 });
 
-export const toast = {
+const toast = {
   success,
   error,
 };
+
+export default toast;

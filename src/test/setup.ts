@@ -16,7 +16,10 @@ globalThis.window.matchMedia = () => {
 };
 
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
-afterAll(() => server.close());
+afterAll(() => {
+  server.close();
+  vi.unstubAllGlobals();
+});
 
 afterEach(() => {
   testQueryClient.clear();
