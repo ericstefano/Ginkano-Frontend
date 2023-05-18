@@ -13,24 +13,25 @@ import { vi } from 'vitest';
 import { Loader } from '@/components';
 import { AuthProvider } from '@/contexts/auth';
 
+export const testQueryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+      refetchOnWindowFocus: false,
+      retry: false,
+    },
+  },
+  logger: {
+    log: console.log,
+    warn: console.warn,
+    error: () => vi.fn(),
+  },
+});
+
 const TestProviders = ({ children }: { children: ReactNode }) => {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        refetchOnMount: false,
-        refetchOnReconnect: false,
-        refetchOnWindowFocus: false,
-        retry: false,
-      },
-    },
-    logger: {
-      log: console.log,
-      warn: console.warn,
-      error: () => vi.fn(),
-    },
-  });
   return (
-    <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={testQueryClient}>
       <Suspense fallback={<Loader />}>
         <MemoryRouter>
           <AuthProvider>{children}</AuthProvider>
