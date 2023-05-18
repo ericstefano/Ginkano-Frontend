@@ -6,33 +6,40 @@ import {
   screen,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { MemoryRouter } from 'react-router-dom';
+import { MemoryRouter, MemoryRouterProps } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'react-hot-toast';
 import { vi } from 'vitest';
 import { Loader } from '@/components';
 import { AuthProvider } from '@/contexts/auth';
 
-const TestProviders = ({ children }: { children: ReactNode }) => {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        refetchOnMount: false,
-        refetchOnReconnect: false,
-        refetchOnWindowFocus: false,
-        retry: false,
-      },
+export const testQueryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+      refetchOnWindowFocus: false,
+      retry: false,
     },
-    logger: {
-      log: console.log,
-      warn: console.warn,
-      error: () => vi.fn(),
-    },
-  });
+  },
+  logger: {
+    log: console.log,
+    warn: console.warn,
+    error: () => vi.fn(),
+  },
+});
+
+const TestProviders = ({
+  children,
+  initialRoutes = ['/'],
+}: {
+  children: ReactNode;
+  initialRoutes?: MemoryRouterProps['initialEntries'];
+}) => {
   return (
-    <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={testQueryClient}>
       <Suspense fallback={<Loader />}>
-        <MemoryRouter>
+        <MemoryRouter initialEntries={initialRoutes}>
           <AuthProvider>{children}</AuthProvider>
         </MemoryRouter>
       </Suspense>

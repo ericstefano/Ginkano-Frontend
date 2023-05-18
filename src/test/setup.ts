@@ -1,4 +1,5 @@
 import { vi } from 'vitest';
+import { testQueryClient } from './utils';
 import { clear } from '@/services/localStorage';
 import '@testing-library/jest-dom/extend-expect';
 import { server } from '~mocks/servers/test';
@@ -21,6 +22,7 @@ afterAll(() => {
 });
 
 afterEach(() => {
+  testQueryClient.clear();
   server.resetHandlers();
   clear();
 });
