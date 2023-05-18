@@ -6,7 +6,7 @@ const CardRoot = ({ className, children, ...props }: CardRootProps) => {
   return (
     <div
       className={clsx(
-        'rounded-3 w-xs border border-2 p-4 transition-all hover:(shadow-sm scale-101) select-none',
+        'rounded-3 w-xs border border-2 p-4 transition-all select-none h-full',
         className,
       )}
       {...props}
@@ -19,9 +19,9 @@ const CardRoot = ({ className, children, ...props }: CardRootProps) => {
 type CardImageProps = { src: string; alt: string; className?: string };
 const CardImage = ({ src, alt, className }: CardImageProps) => {
   return (
-    <div className={clsx('rounded-3 h-48 mb-2', className)}>
+    <div className={clsx('h-48 mb-2', className)}>
       <img
-        className='rounded-3 h-full w-full border'
+        className='rounded-3 h-full w-full border object-cover'
         draggable={false}
         src={src}
         alt={alt}

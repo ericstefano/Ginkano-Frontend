@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import { isAxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { createAuth } from '@/api/user';
-import { toast } from '@/services/toast';
+import toast from '@/services/toast';
 
 export const useRegisterUser = () => {
   const navigate = useNavigate();

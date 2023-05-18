@@ -2,7 +2,12 @@ import { rest } from 'msw';
 import { encode, decode } from 'js-base64';
 import { db } from '../data/db';
 import { getBaseUrl, MOCK_JWT_SECRET } from './utils';
-import { USER_AUTH_URL, USER_BASE_URL, USER_REGISTER_URL } from '@/api/user';
+import {
+  USER_AUTH_URL,
+  USER_BASE_URL,
+  USER_LIST_SCHOOLS_URL,
+  USER_REGISTER_URL,
+} from '@/api/user';
 
 export const auth = [
   rest.post(getBaseUrl(USER_AUTH_URL), async (req, res, ctx) => {
@@ -24,7 +29,6 @@ export const auth = [
     );
 
     return res(
-      ctx.delay(1000),
       ctx.status(200),
       ctx.json({
         data: {
@@ -81,6 +85,51 @@ export const auth = [
         username: user.username,
         firstname: user.firstname,
         lastname: user.lastname,
+      }),
+    );
+  }),
+
+  rest.get(getBaseUrl(USER_LIST_SCHOOLS_URL), async (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        data: [
+          {
+            school: {
+              nome: 'Escola Municipal São João',
+              token: 'abc12',
+              endereco: 'Rua das Flores, 123',
+            },
+          },
+          {
+            school: {
+              nome: 'Escola Estadual Carlos Drummond de Andrade',
+              token: 'def34',
+              endereco: 'Avenida Brasil, 567',
+            },
+          },
+          {
+            school: {
+              nome: 'Colégio Particular Santo Antônio',
+              token: 'ghi56',
+              endereco: 'Rua São Paulo, 890',
+            },
+          },
+          {
+            school: {
+              nome: 'Escola Municipal Monteiro Lobato',
+              token: 'jkl78',
+              endereco: 'Avenida Rio de Janeiro, 321',
+            },
+          },
+          {
+            school: {
+              nome: 'Escola Estadual Machado de Assis',
+              token: 'mno90',
+              endereco: 'Rua dos Cravos, 456',
+            },
+          },
+        ],
       }),
     );
   }),

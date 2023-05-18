@@ -6,7 +6,7 @@ const Letter = ({ className, children }: LetterProps) => {
   return (
     <span
       className={clsx(
-        'text-7xl text-black font-bold animate-bounce-alt animate-duration-2500',
+        'text-7xl <lg:text-6xl text-black font-bold animate-bounce-alt animate-duration-2500',
         className,
       )}
     >
@@ -17,7 +17,10 @@ const Letter = ({ className, children }: LetterProps) => {
 
 export const SplashLoader = () => {
   return (
-    <div className='h-screen w-screen flex justify-center items-center bg-white relative'>
+    <div
+      className='h-screen w-screen flex justify-center items-center bg-white relative select-none'
+      data-testid='loader'
+    >
       <Letter className='animate-delay-0'>G</Letter>
       <Letter className='animate-delay-50'>i</Letter>
       <Letter className='animate-delay-100'>n</Letter>

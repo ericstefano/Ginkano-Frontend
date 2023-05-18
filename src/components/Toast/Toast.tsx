@@ -24,11 +24,13 @@ export const Toast = ({ t, message, color }: ToastProps) => {
         'max-w-md w-full transition-all select-none',
         'shadow-lg rounded-lg pointer-events-auto flex ring-1 items-center ring-black ring-opacity-5',
       )}
+      {...t.ariaProps}
+      // todo: when testing, getting by role alert is not working
     >
-      <div className='flex-1 w-0 py-2 px-2'>
+      <div className='flex-1 w-0 p-2'>
         <div className='flex items-start'>
-          <div className='ml-3 flex-1'>
-            <p className='font-medium text-white'>{message}</p>
+          <div className='px-3 <lg:px-1.5 flex-1'>
+            <p className='font-medium text-white <lg:text-sm'>{message}</p>
           </div>
         </div>
       </div>
@@ -36,9 +38,9 @@ export const Toast = ({ t, message, color }: ToastProps) => {
         <button
           type='button'
           onClick={() => toast.dismiss(t.id)}
-          className='w-full border text-white border-transparent transition-all rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium  hover:text-green-100 focus:outline-none'
+          className='w-full border text-white border-transparent transition-all rounded-none rounded-r-lg p-4 <lg:p-3 flex items-center justify-center font-medium  hover:text-green-100 focus:outline-none'
         >
-          <X className='h-6 w-6' />
+          <X className='h-6 w-6 <lg:(h-5 w-5)' />
         </button>
       </div>
     </div>

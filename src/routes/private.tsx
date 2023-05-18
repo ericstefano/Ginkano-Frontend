@@ -6,7 +6,9 @@ import {
 } from 'react-router-dom';
 import { lazy } from 'react';
 import { MainLayout } from '@/layouts/';
-const LazyMainPage = lazy(() => import('@/pages/MainPage/MainPage'));
+const LazyListSchoolsPage = lazy(
+  () => import('@/pages/ListSchoolsPage/ListSchoolsPage'),
+);
 const LazySchoolPage = lazy(() => import('@/pages/SchoolPage/SchoolPage'));
 const routes: RouteObject[] = [
   {
@@ -15,7 +17,7 @@ const routes: RouteObject[] = [
     children: [
       {
         index: true,
-        element: <LazyMainPage />,
+        element: <LazyListSchoolsPage />,
       },
       {
         path: '/school',

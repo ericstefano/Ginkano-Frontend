@@ -16,7 +16,7 @@ export const SchoolCard = ({
   ...props
 }: SchoolCardProps) => {
   return (
-    <BaseCard.Root {...props}>
+    <BaseCard.Root className='hover:(shadow-sm scale-100.5)' {...props}>
       <BaseCard.Image src={src} alt={alt} />
       <BaseCard.Description>
         <BaseCard.Title>{title}</BaseCard.Title>

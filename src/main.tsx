@@ -12,7 +12,7 @@ import Providers from './providers';
 
 const prepare = async (): Promise<void> => {
   if (!API_MOCKING) return;
-  const { worker } = await import('../mocks/workers/dev');
+  const { worker } = await import('~mocks/workers/dev');
   worker.start({ onUnhandledRequest: 'bypass' });
 };
 
