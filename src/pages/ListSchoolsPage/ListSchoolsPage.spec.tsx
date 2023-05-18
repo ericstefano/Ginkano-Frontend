@@ -29,6 +29,7 @@ describe('ListSchoolsPage', () => {
         res(ctx.status(500)),
       ),
     );
-    await renderWithProviders(<ListSchoolsPage />);
+    await renderWithProviders(<ListSchoolsPage />, { withToast: true });
+    expect(await screen.findByText(/erro ao buscar/i)).toBeInTheDocument();
   });
 });
