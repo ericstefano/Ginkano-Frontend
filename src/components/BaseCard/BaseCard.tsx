@@ -6,7 +6,7 @@ const CardRoot = ({ className, children, ...props }: CardRootProps) => {
   return (
     <div
       className={clsx(
-        'rounded-3 w-xs border border-2 p-4 transition-all hover:(shadow-sm scale-100.5) select-none',
+        'rounded-3 w-xs border border-2 p-4 transition-all select-none h-full',
         className,
       )}
       {...props}

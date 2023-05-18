@@ -3,11 +3,11 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { BaseCard } from '../BaseCard';
 
-export type LoadingSchoolCardProps = ComponentPropsWithoutRef<'div'>;
+export type SchoolCardLoaderProps = ComponentPropsWithoutRef<'div'>;
 
-export const LoadingSchoolCard = ({ ...props }: LoadingSchoolCardProps) => {
+export const SchoolCardLoader = ({ ...props }: SchoolCardLoaderProps) => {
   return (
-    <BaseCard.Root {...props}>
+    <BaseCard.Root {...props} data-testid='loader'>
       <Skeleton height='12rem' borderRadius='0.75rem' className='h-48 mb-2' />
       <BaseCard.Description>
         <BaseCard.Title>
