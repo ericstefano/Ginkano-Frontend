@@ -44,6 +44,7 @@ export const Button = ({
       </span>
       {loading ? (
         <LoaderIcon
+          data-testid='loader'
           className={clsx('absolute h-6 w-6', { 'animate-spin': loading })}
         />
       ) : null}
