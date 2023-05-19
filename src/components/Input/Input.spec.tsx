@@ -2,13 +2,13 @@ import { vi } from 'vitest';
 import { Input } from './Input';
 import { render, screen, userEvent } from '@/test/utils';
 
-describe('Component: Input', () => {
+describe('Input', () => {
   it('should be able to render', () => {
     render(<Input label='E-mail' id='element' placeholder='test' />);
 
-    const componentUnderTest = screen.getByPlaceholderText(/test/i);
+    const input = screen.getByPlaceholderText(/test/i);
 
-    expect(componentUnderTest).toBeInTheDocument();
+    expect(input).toBeInTheDocument();
   });
 
   it('should call onChange function', async () => {
@@ -23,9 +23,9 @@ describe('Component: Input', () => {
       />,
     );
 
-    const componentUnderTest = screen.getByPlaceholderText(/test/i);
+    const input = screen.getByPlaceholderText(/test/i);
 
-    await userEvent.type(componentUnderTest, 'teste');
+    await userEvent.type(input, 'teste');
 
     expect(mockedOnChange).toBeCalledTimes(5);
   });
@@ -36,14 +36,11 @@ describe('Component: Input', () => {
         label='E-mail'
         id='element'
         placeholder='test'
-        leftAdornment={<div data-testid='left'>Glubis Glubis</div>}
+        leftAdornment={<button>Teste</button>}
       />,
     );
 
-    //    const componentUnderTest = screen.getByPlaceholderText(/test/i);
-
-    //    const leftAdornment = within(componentUnderTest).getByTestId('left'); ??
-    const leftAdornment = screen.getByTestId('left');
+    const leftAdornment = screen.getByRole('button');
 
     expect(leftAdornment).toBeInTheDocument();
   });
@@ -54,11 +51,11 @@ describe('Component: Input', () => {
         label='E-mail'
         id='element'
         placeholder='test'
-        rightAdornment={<div data-testid='right'>Glubis Glubis</div>}
+        rightAdornment={<button>Teste</button>}
       />,
     );
 
-    const rightAdornment = screen.getByTestId('right');
+    const rightAdornment = screen.getByRole('button');
 
     expect(rightAdornment).toBeInTheDocument();
   });
@@ -66,8 +63,16 @@ describe('Component: Input', () => {
   it('should render a description if is passed to the component', () => {
     render(<Input description='teste' label='E-mail' />);
 
-    const componentUnderTest = screen.getByText(/teste/i);
+    const description = screen.getByText(/teste/i);
 
-    expect(componentUnderTest).toBeInTheDocument();
+    expect(description).toBeInTheDocument();
+  });
+
+  it('should render error', () => {
+    render(<Input error label='Email' description='generic error' />);
+
+    const error = screen.getByRole('alert');
+
+    expect(error).toBeInTheDocument();
   });
 });
