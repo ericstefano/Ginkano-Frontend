@@ -13,6 +13,7 @@
     "test:ui": "vitest --ui",
     "lint": "eslint src",
     "lint:fix": "eslint --fix src",
+    "typecheck": "tsc --noEmit",
     "format": "prettier --write src",
     "prepare": "husky install",
     "storybook": "storybook dev -p 6006",
