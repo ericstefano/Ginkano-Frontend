@@ -4,12 +4,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import clsx from 'clsx';
 import { isAxiosError } from 'axios';
-import { Input } from '../Input';
-import { PasswordInput } from '../PasswordInput';
-import { Checkbox } from '../Checkbox';
-import { Button } from '../Button';
 import { RegisterFormData, registerFormSchema } from './SignupForm.schema';
 import { useRegisterUser } from './useRegisterUser';
+import { Button, Checkbox, Input, PasswordInput } from '@/components';
 
 export const SignupForm = () => {
   const [error, setError] = useState<Error | undefined>();

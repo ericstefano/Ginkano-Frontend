@@ -3,9 +3,9 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import clsx from 'clsx';
-import { Input } from '../Input';
-import { PasswordInput } from '../PasswordInput';
-import { Button } from '../Button';
+import { Input } from '../../../components/Input';
+import { PasswordInput } from '../../../components/PasswordInput';
+import { Button } from '../../../components/Button';
 import { LoginFormData, loginFormSchema } from './LoginForm.schema';
 import { useAuthContext } from '@/contexts/auth';
 
