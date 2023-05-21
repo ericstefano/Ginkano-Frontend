@@ -1,5 +1,9 @@
 import { User } from '@/types';
 
+export type AuthResponseDto = { jwtToken: string; data: User };
+
+export type GetAuthParams = { username: string; password: string };
+
 export type CreateUserParams = {
   firstname: string;
   lastname: string;
@@ -8,13 +12,11 @@ export type CreateUserParams = {
   conditions: number;
 };
 
-export type AuthResponseDto = { jwtToken: string; data: User };
-export type GetAuthParams = { username: string; password: string };
-
-export type School = {
-  nome: string;
-  token: string;
-  endereco: string;
+export type EditUserParams = {
+  username: string;
+  password: string;
+  firstname: string;
+  lastname: string;
+  ocupacao: string;
+  conditions: number;
 };
-
-export type GetSchoolsResponseDto = { data: { school: School }[] };

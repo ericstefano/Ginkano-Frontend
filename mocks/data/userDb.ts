@@ -1,34 +1,44 @@
-import { factory } from '@mswjs/data';
-import { userModel } from './user';
+import { factory, primaryKey } from '@mswjs/data';
 
-export const db = factory({
+export const userModel = {
+  user: {
+    username: primaryKey(String),
+    password: String,
+    firstname: String,
+    lastname: String,
+  },
+};
+
+const userDb = factory({
   ...userModel,
 });
 
-db.user.create({
+userDb.user.create({
   username: 'erig',
   password: 'Teste@123',
   firstname: 'Eric',
   lastname: 'Lima',
 });
 
-db.user.create({
+userDb.user.create({
   username: 'tutu',
   password: 'Teste@123',
   firstname: 'Arthur',
   lastname: 'Henrique',
 });
 
-db.user.create({
+userDb.user.create({
   username: 'lua',
   password: 'Teste@123',
   firstname: 'Luan',
   lastname: 'Otavio',
 });
 
-db.user.create({
+userDb.user.create({
   username: 'hugao',
   password: 'Teste@123',
   firstname: 'Hugo',
   lastname: 'Guimarães',
 });
+
+export { userDb };

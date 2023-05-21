@@ -2,14 +2,15 @@ import client from '../client';
 import {
   USER_AUTH_URL,
   USER_BASE_URL,
-  USER_LIST_SCHOOLS_URL,
   USER_REGISTER_URL,
+  USER_EDIT_URL,
+  USER_DELETE_URL,
 } from './url.constants';
 import {
   AuthResponseDto,
   CreateUserParams,
+  EditUserParams,
   GetAuthParams,
-  GetSchoolsResponseDto,
 } from './user.types';
 import { User } from '@/types/User';
 
@@ -28,7 +29,12 @@ export async function getUser(): Promise<User> {
   return res.data;
 }
 
-export async function getSchools(): Promise<GetSchoolsResponseDto> {
-  const res = await client.get(USER_LIST_SCHOOLS_URL);
+export async function editUser(data: EditUserParams): Promise<void> {
+  const res = await client.post(USER_EDIT_URL, data);
+  return res.data;
+}
+
+export async function deleteUser(): Promise<void> {
+  const res = await client.post(USER_DELETE_URL);
   return res.data;
 }
