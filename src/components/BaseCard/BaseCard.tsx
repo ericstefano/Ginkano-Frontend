@@ -71,9 +71,9 @@ const CardFloatButton = ({
   return (
     <button
       className={clsx(
-        'h-10 w-10 absolute text-white',
+        'h-10 w-10 absolute text-white ',
         'shadow-sm rounded-3xl p-1',
-        'group-hover:flex hidden animate-fade-in',
+        'group-hover:flex group-focus-within:flex hidden animate-fade-in',
         'animate-duration-100 items-center justify-center',
         'active:(scale-92 shadow-md) transition-all duration-75 z-10',
         className,

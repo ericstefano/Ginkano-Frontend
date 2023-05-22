@@ -29,18 +29,6 @@ export const GroupCard = ({
 
   return (
     <BaseCard.Root className={className}>
-      <BaseCard.FloatButton
-        className='top-2 right-2 bg-violet-400'
-        onClick={onUpdateButtonClick}
-      >
-        <Edit className='h-5 w-5' />
-      </BaseCard.FloatButton>
-      <BaseCard.FloatButton
-        className='top-2 right-13 bg-red-400'
-        onClick={onDeleteButtonClick}
-      >
-        <Trash className='h-5 w-5' />
-      </BaseCard.FloatButton>
       <LinkOrDiv to={to as string}>
         <BaseCard.Container
           className='hover:(shadow-sm scale-100.5)'
@@ -55,6 +43,18 @@ export const GroupCard = ({
           </BaseCard.Description>
         </BaseCard.Container>
       </LinkOrDiv>
+      <BaseCard.FloatButton
+        className='top-2 right-13 bg-red-400'
+        onClick={onDeleteButtonClick}
+      >
+        <Trash className='h-5 w-5' />
+      </BaseCard.FloatButton>
+      <BaseCard.FloatButton
+        className='top-2 right-2 bg-violet-400'
+        onClick={onUpdateButtonClick}
+      >
+        <Edit className='h-5 w-5' />
+      </BaseCard.FloatButton>
     </BaseCard.Root>
   );
 };
