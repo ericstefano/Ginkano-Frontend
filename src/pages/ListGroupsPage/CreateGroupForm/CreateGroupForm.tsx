@@ -6,8 +6,14 @@ import {
 } from './CreateGroupForm.schema';
 import { Button, Input } from '@/components';
 
-type CreateGroupFormProps = { onSubmit: () => void };
-export const CreateGroupForm = ({ onSubmit }: CreateGroupFormProps) => {
+type CreateGroupFormProps = {
+  onSubmit: (data: CreateGroupFormData) => void;
+  loading?: boolean;
+};
+export const CreateGroupForm = ({
+  onSubmit,
+  loading,
+}: CreateGroupFormProps) => {
   const {
     register,
     handleSubmit,
@@ -22,20 +28,22 @@ export const CreateGroupForm = ({ onSubmit }: CreateGroupFormProps) => {
         label='Nome'
         className='mb-2'
         variant='secondary'
-        {...register('nome')}
         error={!!errors.nome}
         description={errors.nome?.message}
+        {...register('nome')}
       />
       <Input
         label='Endereço'
         className='mb-4'
         variant='secondary'
-        {...register('endereco')}
         error={!!errors.endereco}
         description={errors.endereco?.message}
+        {...register('endereco')}
       />
       <div className='flex justify-end'>
-        <Button size='sm'>Criar</Button>
+        <Button size='sm' loading={loading}>
+          Criar
+        </Button>
       </div>
     </form>
   );

@@ -7,12 +7,14 @@ import {
 import { Button, Input } from '@/components';
 
 type UpdateGroupFormProps = {
-  onSubmit: () => void;
+  onSubmit: (data: UpdateGroupFormData) => void;
   defaultValues: UpdateGroupFormData;
+  loading?: boolean;
 };
 export const UpdateGroupForm = ({
   onSubmit,
   defaultValues,
+  loading,
 }: UpdateGroupFormProps) => {
   const {
     register,
@@ -42,7 +44,9 @@ export const UpdateGroupForm = ({
         description={errors.endereco?.message}
       />
       <div className='flex justify-end'>
-        <Button size='sm'>Enviar</Button>
+        <Button size='sm' loading={loading}>
+          Enviar
+        </Button>
       </div>
     </form>
   );

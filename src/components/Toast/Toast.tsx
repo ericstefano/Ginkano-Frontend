@@ -24,7 +24,8 @@ export const Toast = ({ t, message, color }: ToastProps) => {
         'max-w-md w-full transition-all select-none',
         'shadow-lg rounded-lg pointer-events-auto flex ring-1 items-center ring-black ring-opacity-5',
       )}
-      {...t.ariaProps}
+      role={t.ariaProps.role}
+      aria-live={t.ariaProps['aria-live']}
       // todo: when testing, getting by role alert is not working
     >
       <div className='flex-1 w-0 p-2'>

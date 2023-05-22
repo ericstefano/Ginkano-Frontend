@@ -34,7 +34,7 @@ export const Input = forwardRef<HTMLInputElement | null, InputProps>(
           htmlFor={id}
           className={clsx('font-500 mb-0.5', {
             'text-gray-50': variant === 'primary',
-            'text-gray-600': variant === 'secondary',
+            'text-neutral-600': variant === 'secondary',
           })}
         >
           {label}
@@ -48,13 +48,14 @@ export const Input = forwardRef<HTMLInputElement | null, InputProps>(
           ) : undefined}
           <input
             className={clsx(
-              'h-9 w-full bg-neutral-100 focus-visible:(outline-violet-200 outline outline-2 outline-offset-2)',
+              'h-9 w-full focus-visible:(outline-violet-200 outline outline-2 outline-offset-2)',
               {
                 'rounded-l-2.5 pl-2': !leftAdornment,
                 'rounded-r-2.5 pr-2': !rightAdornment,
               },
               {
-                'border border-1 border-black-100': variant === 'secondary',
+                'bg-neutral-100': variant === 'primary',
+                'border border-1 border-neutral-300': variant === 'secondary',
               },
             )}
             id={id}

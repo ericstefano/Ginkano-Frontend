@@ -1,27 +1,22 @@
-import { Fragment } from 'react';
 import { useQuerySchools } from './useQueryGroups';
-import { CreateGroupForm } from './CreateGroupForm/';
-import { UpdateGroupForm } from './UpdateGroupForm';
+import { CreateGroupForm, CreateGroupFormData } from './CreateGroupForm/';
+import { UpdateGroupForm, UpdateGroupFormData } from './UpdateGroupForm';
 import { RemoveGroupForm } from './RemoveGroupForm/';
+import { useCreateGroup } from './useCreateGroup';
+import { useUpdateGroup } from './useUpdateGroup';
+import { useRemoveGroup } from './useRemoveGroup';
 import {
   Button,
   NoDataMessage,
-  SchoolCard,
-  SchoolCardLoader,
+  GroupCard,
+  GroupCardLoader,
   Section,
   Modal,
 } from '@/components';
 import { PlusCircle } from '@/components/icons';
 import { useAuthContext } from '@/contexts/auth';
 import { useCrudMachine } from '@/hooks/useCrudMachine';
-
-const SchoolLoaderGroup = () => {
-  return (
-    <Fragment>
-      <SchoolCardLoader /> <SchoolCardLoader /> <SchoolCardLoader />
-    </Fragment>
-  );
-};
+import { Group } from '@/api/group';
 
 export default function ListGroupsPage() {
   const { user } = useAuthContext();
@@ -32,10 +27,10 @@ export default function ListGroupsPage() {
     isCreating,
     isUpdating,
     isRemoving,
-    create,
-    update,
-    remove,
-    idle,
+    dispatchCreate,
+    dispatchUpdate,
+    dispatchRemove,
+    dispatchIdle,
   } = useCrudMachine();
 
   const {
@@ -46,9 +41,19 @@ export default function ListGroupsPage() {
     refetch,
   } = useQuerySchools();
 
-  const hasData = groups && groups.length;
+  const { mutateAsync: createGroup, isLoading: isLoadingCreate } =
+    useCreateGroup();
 
-  const currentGroup = groups?.find((group) => group.token === state.id);
+  const { mutateAsync: updateGroup, isLoading: isLoadingUpdate } =
+    useUpdateGroup();
+
+  const { mutateAsync: removeGroup, isLoading: isLoadingRemove } =
+    useRemoveGroup();
+
+  const hasData = groups && groups.length;
+  const currentGroup = groups?.find(
+    (group) => group.token === state.id,
+  ) as Group;
 
   return (
     <Section.Root>
@@ -57,7 +62,7 @@ export default function ListGroupsPage() {
         <Section.Subtitle>Seus grupos:</Section.Subtitle>
         <Button
           size='sm'
-          onClick={() => create('Criar grupo')}
+          onClick={() => dispatchCreate('Criar grupo')}
           leftIcon={<PlusCircle className='h-5 w-5' />}
         >
           Novo grupo
@@ -65,17 +70,21 @@ export default function ListGroupsPage() {
       </div>
 
       <Section.Content grow={!hasData && !isLoading}>
-        {isLoading ? <SchoolLoaderGroup /> : null}
+        {isLoading ? <GroupCardLoader quantity={3} /> : null}
 
         {isSuccess && hasData
           ? groups.map((group) => (
-              <SchoolCard
+              <GroupCard
                 to={`/group/${group.token}`}
                 key={group.token}
                 title={group.nome}
                 subtitle={group.endereco}
-                onUpdateButtonClick={() => update(group.token, 'Editar grupo')}
-                onDeleteButtonClick={() => remove(group.token, 'Deletar grupo')}
+                onUpdateButtonClick={() =>
+                  dispatchUpdate(group.token, 'Editar grupo')
+                }
+                onDeleteButtonClick={() =>
+                  dispatchRemove(group.token, 'Deletar grupo')
+                }
                 src='https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png'
                 alt='placeholder'
               />
@@ -91,21 +100,41 @@ export default function ListGroupsPage() {
         )}
       </Section.Content>
 
-      <Modal title={state.title} open={!isIdle} onOpenChange={idle}>
-        {isCreating ? <CreateGroupForm onSubmit={() => null} /> : null}
+      <Modal title={state.title} open={!isIdle} onOpenChange={dispatchIdle}>
+        {isCreating ? (
+          <CreateGroupForm
+            onSubmit={(data: CreateGroupFormData) =>
+              createGroup(data, { onSettled: () => dispatchIdle() })
+            }
+            loading={isLoadingCreate}
+          />
+        ) : null}
+
         {isUpdating ? (
           <UpdateGroupForm
-            onSubmit={() => null}
+            onSubmit={(data: UpdateGroupFormData) =>
+              updateGroup(
+                { ...data, token: state.id },
+                { onSettled: () => dispatchIdle() },
+              )
+            }
             defaultValues={{
               endereco: currentGroup?.endereco,
               nome: currentGroup?.nome,
             }}
+            loading={isLoadingUpdate}
           />
         ) : null}
+
         {isRemoving ? (
           <RemoveGroupForm
-            onSubmit={() => console.log}
-            onNoButtonClick={idle}
+            onSubmit={() =>
+              removeGroup(currentGroup, {
+                onSettled: () => dispatchIdle(),
+              })
+            }
+            loading={isLoadingRemove}
+            onNoButtonClick={dispatchIdle}
           />
         ) : null}
       </Modal>

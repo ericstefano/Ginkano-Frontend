@@ -4,7 +4,7 @@ import { BaseCard } from '../BaseCard';
 import { Edit } from '../icons/Edit';
 import { Trash } from '../icons/Trash';
 
-export type SchoolCardProps = {
+export type GroupCardProps = {
   title: string;
   subtitle?: ReactNode;
   to?: string;
@@ -14,7 +14,7 @@ export type SchoolCardProps = {
   onDeleteButtonClick: () => void;
 } & ComponentPropsWithoutRef<'div'>;
 
-export const SchoolCard = ({
+export const GroupCard = ({
   src,
   alt,
   to,
@@ -24,7 +24,7 @@ export const SchoolCard = ({
   onDeleteButtonClick,
   subtitle,
   ...props
-}: SchoolCardProps) => {
+}: GroupCardProps) => {
   const LinkOrDiv = to ? Link : 'div';
 
   return (
