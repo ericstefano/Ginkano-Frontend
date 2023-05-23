@@ -10,7 +10,7 @@ export const Header = ({ className, ...props }: HeaderProps) => {
   return (
     <header
       className={clsx(
-        'h-14 bg-violet-700 py-2 flex justify-center items-center sticky top-0 z-10 shadow-sm ',
+        'h-14 bg-violet-700 py-2 flex justify-center items-center sticky top-0 z-20 shadow-sm ',
         className,
       )}
       {...props}

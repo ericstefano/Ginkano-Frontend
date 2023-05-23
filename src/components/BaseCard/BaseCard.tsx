@@ -2,7 +2,20 @@ import clsx from 'clsx';
 import { ComponentPropsWithoutRef, ReactNode } from 'react';
 
 type CardRootProps = ComponentPropsWithoutRef<'div'>;
-const CardRoot = ({ className, children, ...props }: CardRootProps) => {
+const CardRoot = ({ children, className, ...props }: CardRootProps) => {
+  return (
+    <div className={clsx('relative group', className)} {...props}>
+      {children}
+    </div>
+  );
+};
+
+type CardContainerProps = ComponentPropsWithoutRef<'div'>;
+const CardContainer = ({
+  className,
+  children,
+  ...props
+}: CardContainerProps) => {
   return (
     <div
       className={clsx(
@@ -49,10 +62,35 @@ const CardDescription = ({ children, className }: CardDescriptionProps) => {
   return <div className={clsx('px-2', className)}>{children}</div>;
 };
 
+type CardFloatButtonProps = ComponentPropsWithoutRef<'button'>;
+const CardFloatButton = ({
+  className,
+  children,
+  ...props
+}: CardFloatButtonProps) => {
+  return (
+    <button
+      className={clsx(
+        'h-10 w-10 absolute text-white ',
+        'shadow-sm rounded-3xl p-1',
+        'group-hover:flex group-focus-within:flex hidden animate-fade-in',
+        'animate-duration-100 items-center justify-center',
+        'active:(scale-92 shadow-md) transition-all duration-75 z-10',
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+};
+
 export const BaseCard = {
   Root: CardRoot,
+  Container: CardContainer,
   Image: CardImage,
   Description: CardDescription,
   Title: CardTitle,
   Subtitle: CardSubtitle,
+  FloatButton: CardFloatButton,
 };
