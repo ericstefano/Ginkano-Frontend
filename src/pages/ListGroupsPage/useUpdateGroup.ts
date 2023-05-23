@@ -26,7 +26,7 @@ export const useUpdateGroup = () => {
         [LIST_GROUPS_QUERY_KEY],
         context?.previousGroups,
       );
-      toast.error('Falha ao criar o grupo, por favor tente novamente.');
+      toast.error('Falha ao editar o grupo, por favor tente novamente.');
     },
   });
 };

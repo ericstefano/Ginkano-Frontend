@@ -10,7 +10,7 @@ export const useQuerySchools = () => {
     queryKey: [LIST_GROUPS_QUERY_KEY],
     queryFn: getAllGroups,
     onError: () =>
-      toast.error('Erro ao buscar os grupos, por favor, tente novamente!'),
+      toast.error('Erro ao buscar os grupos, por favor, tente novamente.'),
     select: (data) => data.data.map((group) => group.group),
   });
 };
