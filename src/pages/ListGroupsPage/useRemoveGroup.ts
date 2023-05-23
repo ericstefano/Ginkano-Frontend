@@ -10,15 +10,13 @@ export const useRemoveGroup = () => {
     onMutate: (group) => {
       const previousGroups = queryClient.getQueryData([LIST_GROUPS_QUERY_KEY]);
       queryClient.setQueryData([LIST_GROUPS_QUERY_KEY], (old) => {
-        const result = old.data.filter(
-          (element) => element.group.token !== group.token,
-        );
-        return { data: result };
+        return {
+          data: old.data.filter(
+            (element) => element.group.token !== group.token,
+          ),
+        };
       });
       return { previousGroups };
-    },
-    onSuccess: () => {
-      toast.success('Grupo deletado com sucesso!');
     },
     onError: (_err, _data, context) => {
       queryClient.setQueryData(

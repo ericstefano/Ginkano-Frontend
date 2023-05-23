@@ -10,16 +10,14 @@ export const useUpdateGroup = () => {
     onMutate: (group) => {
       const previousGroups = queryClient.getQueryData([LIST_GROUPS_QUERY_KEY]);
       queryClient.setQueryData([LIST_GROUPS_QUERY_KEY], (old) => {
-        const result = old.data.filter(
-          (element) => element.group.token !== group.token,
-        );
-        result.push({ group: group });
-        return { data: result };
+        return {
+          data: old.data.map((element) => {
+            if (element.group.token !== group.token) return element;
+            return { group };
+          }),
+        };
       });
       return { previousGroups };
-    },
-    onSuccess: () => {
-      toast.success('Grupo atualizado com sucesso!');
     },
     onError: (_err, _data, context) => {
       queryClient.setQueryData(
