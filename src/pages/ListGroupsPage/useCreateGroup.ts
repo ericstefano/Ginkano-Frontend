@@ -4,7 +4,7 @@ import { createGroup } from '@/api/group';
 import toast from '@/services/toast';
 import { queryClient } from '@/providers';
 
-export const useCreateGroup = () => {
+export const useCreateGroup = (onSettled: () => void) => {
   return useMutation({
     mutationFn: createGroup,
     onSuccess: (data) => {
@@ -16,5 +16,6 @@ export const useCreateGroup = () => {
     },
     onError: () =>
       toast.error('Falha ao criar o grupo, por favor tente novamente.'),
+    onSettled,
   });
 };

@@ -15,8 +15,15 @@ import {
 } from '@/components';
 import { PlusCircle } from '@/components/icons';
 import { useAuthContext } from '@/contexts/auth';
-import { useCrudMachine } from '@/hooks/useCrudMachine';
+import { useCrudMachine, CrudMachineState } from '@/hooks/useCrudMachine';
 import { Group } from '@/api/group';
+
+const titleMap: Record<CrudMachineState['status'], string> = {
+  idle: '',
+  creating: 'Criar grupo',
+  updating: 'Editar grupo',
+  removing: 'Remover grupo',
+};
 
 export default function ListGroupsPage() {
   const { user } = useAuthContext();
@@ -42,13 +49,13 @@ export default function ListGroupsPage() {
   } = useQuerySchools();
 
   const { mutateAsync: createGroup, isLoading: isLoadingCreate } =
-    useCreateGroup();
+    useCreateGroup(dispatchIdle);
 
   const { mutateAsync: updateGroup, isLoading: isLoadingUpdate } =
-    useUpdateGroup();
+    useUpdateGroup(dispatchIdle);
 
   const { mutateAsync: removeGroup, isLoading: isLoadingRemove } =
-    useRemoveGroup();
+    useRemoveGroup(dispatchIdle);
 
   const hasData = groups && groups.length;
   const currentGroup = groups?.find(
@@ -62,7 +69,7 @@ export default function ListGroupsPage() {
         <Section.Subtitle>Seus grupos:</Section.Subtitle>
         <Button
           size='sm'
-          onClick={() => dispatchCreate('Criar grupo')}
+          onClick={() => dispatchCreate()}
           leftIcon={<PlusCircle className='h-5 w-5' />}
         >
           Novo grupo
@@ -79,12 +86,8 @@ export default function ListGroupsPage() {
                 key={group.token}
                 title={group.nome}
                 subtitle={group.endereco}
-                onUpdateButtonClick={() =>
-                  dispatchUpdate(group.token, 'Editar grupo')
-                }
-                onDeleteButtonClick={() =>
-                  dispatchRemove(group.token, 'Deletar grupo')
-                }
+                onUpdateButtonClick={() => dispatchUpdate(group.token)}
+                onDeleteButtonClick={() => dispatchRemove(group.token)}
                 src='https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png'
                 alt='placeholder'
               />
@@ -100,12 +103,14 @@ export default function ListGroupsPage() {
         )}
       </Section.Content>
 
-      <Modal title={state.title} open={!isIdle} onOpenChange={dispatchIdle}>
+      <Modal
+        title={titleMap[state.status]}
+        open={!isIdle}
+        onOpenChange={dispatchIdle}
+      >
         {isCreating ? (
           <CreateGroupForm
-            onSubmit={(data: CreateGroupFormData) =>
-              createGroup(data, { onSettled: () => dispatchIdle() })
-            }
+            onSubmit={(data: CreateGroupFormData) => createGroup(data)}
             loading={isLoadingCreate}
           />
         ) : null}
@@ -113,10 +118,7 @@ export default function ListGroupsPage() {
         {isUpdating ? (
           <UpdateGroupForm
             onSubmit={(data: UpdateGroupFormData) =>
-              updateGroup(
-                { ...data, token: state.id },
-                { onSettled: () => dispatchIdle() },
-              )
+              updateGroup({ ...data, token: state.id })
             }
             defaultValues={{
               endereco: currentGroup?.endereco,
@@ -128,11 +130,7 @@ export default function ListGroupsPage() {
 
         {isRemoving ? (
           <RemoveGroupForm
-            onSubmit={() =>
-              removeGroup(currentGroup, {
-                onSettled: () => dispatchIdle(),
-              })
-            }
+            onSubmit={() => removeGroup(currentGroup)}
             loading={isLoadingRemove}
             onNoButtonClick={dispatchIdle}
           />
