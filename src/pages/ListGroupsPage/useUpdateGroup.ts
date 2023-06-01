@@ -4,7 +4,7 @@ import { editGroup } from '@/api/group';
 import toast from '@/services/toast';
 import { queryClient } from '@/providers';
 
-export const useUpdateGroup = () => {
+export const useUpdateGroup = (onSettled: () => void) => {
   return useMutation({
     mutationFn: editGroup,
     onMutate: (group) => {
@@ -26,5 +26,6 @@ export const useUpdateGroup = () => {
       );
       toast.error('Falha ao editar o grupo, por favor tente novamente.');
     },
+    onSettled,
   });
 };

@@ -13,7 +13,7 @@ export const group = [
     return res(
       ctx.status(200),
       ctx.json({
-        data: groups.map((group) => ({ group: group })),
+        data: groups.map((group) => ({ group })),
       }),
     );
   }),
@@ -22,7 +22,7 @@ export const group = [
     const json = await req.json();
     const group = { ...json, token: generateHexId() };
     groupDb.group.create(group);
-    return res(ctx.status(200), ctx.json(group));
+    return res(ctx.status(200), ctx.json({ group }));
   }),
 
   rest.post(getBaseUrl(GROUP_EDIT_URL), async (req, res, ctx) => {

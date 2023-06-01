@@ -2,6 +2,8 @@ import { User } from '@/types';
 
 export type AuthResponseDto = { jwtToken: string; data: User };
 
+export type GetUserResponseDto = { data: User };
+
 export type GetAuthParams = { username: string; password: string };
 
 export type CreateUserParams = {

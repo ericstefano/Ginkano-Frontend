@@ -4,7 +4,7 @@ import { deleteGroup } from '@/api/group';
 import toast from '@/services/toast';
 import { queryClient } from '@/providers';
 
-export const useRemoveGroup = () => {
+export const useRemoveGroup = (onSettled: () => void) => {
   return useMutation({
     mutationFn: deleteGroup,
     onMutate: (group) => {
@@ -25,5 +25,6 @@ export const useRemoveGroup = () => {
       );
       toast.error('Falha ao deletar o grupo, por favor tente novamente.');
     },
+    onSettled,
   });
 };

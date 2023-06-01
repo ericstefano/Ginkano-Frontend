@@ -11,8 +11,8 @@ import {
   CreateUserParams,
   EditUserParams,
   GetAuthParams,
+  GetUserResponseDto,
 } from './user.types';
-import { User } from '@/types/User';
 
 export async function createAuth(data: CreateUserParams): Promise<void> {
   const res = await client.post(USER_REGISTER_URL, data);
@@ -24,7 +24,7 @@ export async function getAuth(data: GetAuthParams): Promise<AuthResponseDto> {
   return res.data;
 }
 
-export async function getUser(): Promise<User> {
+export async function getUser(): Promise<GetUserResponseDto> {
   const res = await client.get(USER_BASE_URL);
   return res.data;
 }

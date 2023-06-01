@@ -67,12 +67,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const value = useMemo(
     () => ({
-      user: auth?.data || user,
+      user: auth?.data || user?.data,
       isAuthLoading,
       login,
       logout,
     }),
-    [auth?.data, user, isAuthLoading, login, logout],
+    [auth?.data, user?.data, isAuthLoading, login, logout],
   );
 
   if (isFetching) {
