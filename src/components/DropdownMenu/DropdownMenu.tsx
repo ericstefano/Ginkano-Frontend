@@ -31,7 +31,7 @@ export const DropdownMenu = () => {
       </RadixDropdownMenu.Trigger>
       <RadixDropdownMenu.Portal>
         <RadixDropdownMenu.Content
-          className='bg-white mx-3 drop-shadow-md px-1.5 py-1 rounded-lg select-none border-1  animate-fade-in animate-duration-150 ease-in-out min-w-55'
+          className='bg-white mx-3 drop-shadow-md px-1.5 py-1 rounded-lg select-none border-1  animate-fade-in animate-duration-150 ease-in-out min-w-55 z-30'
           sideOffset={16}
         >
           <DropdownItem asChild>

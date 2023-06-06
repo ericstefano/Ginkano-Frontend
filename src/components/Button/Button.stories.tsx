@@ -13,14 +13,14 @@ export const Default = {
 export const error = {
   args: {
     ...Default.args,
-    variant: 'error',
+    color: 'error',
   },
 };
 
 export const success = {
   args: {
     ...Default.args,
-    variant: 'success',
+    color: 'success',
   },
 };
 

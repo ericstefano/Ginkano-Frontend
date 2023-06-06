@@ -36,7 +36,7 @@ export const UpdateGroupForm = ({
         description={errors.nome?.message}
       />
       <Input
-        label='Endereço'
+        label='Descrição'
         className='mb-4'
         variant='secondary'
         {...register('endereco')}

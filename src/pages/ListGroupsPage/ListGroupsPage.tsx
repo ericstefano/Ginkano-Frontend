@@ -76,7 +76,10 @@ export default function ListGroupsPage() {
         </Button>
       </div>
 
-      <Section.Content grow={!hasData && !isLoading}>
+      <Section.Content
+        grow={!hasData && !isLoading}
+        className='<lg:justify-center gap-6'
+      >
         {isLoading ? <GroupCardLoader quantity={3} /> : null}
 
         {isSuccess && hasData

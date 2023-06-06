@@ -29,7 +29,7 @@ export const Modal = ({
         <div className='w-full h-full fixed z-20 flex flex-col items-center justify-center top-1/2 left-1/2 fixed -translate-1/2 z-20 px-6'>
           <Dialog.Content className='bg-white px-6 py-4 rounded-4 min-w-lg <sm:flex <sm:flex-col <sm:min-w-full transition-all animate-fade-in animate-duration-100 duration-100'>
             <div className='flex justify-between items-center mb-3'>
-              <Dialog.Title className='text-3xl font-bold text-violet'>
+              <Dialog.Title className='text-3xl font-bold'>
                 {title}
               </Dialog.Title>
               <Dialog.Close asChild>

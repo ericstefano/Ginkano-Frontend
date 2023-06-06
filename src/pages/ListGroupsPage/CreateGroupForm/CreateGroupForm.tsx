@@ -33,7 +33,7 @@ export const CreateGroupForm = ({
         {...register('nome')}
       />
       <Input
-        label='Endereço'
+        label='Descrição'
         className='mb-4'
         variant='secondary'
         error={!!errors.endereco}

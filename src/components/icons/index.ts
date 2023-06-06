@@ -1,3 +1,4 @@
+export * from './ArrowLeft';
 export * from './Check';
 export * from './ClosedEye';
 export * from './Edit';

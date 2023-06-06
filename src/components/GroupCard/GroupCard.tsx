@@ -31,7 +31,7 @@ export const GroupCard = ({
     <BaseCard.Root className={className}>
       <LinkOrDiv to={to as string}>
         <BaseCard.Container
-          className='hover:(shadow-sm scale-100.5)'
+          className='hover:(shadow-sm scale-100.5) w-xs'
           {...props}
         >
           <BaseCard.Image src={src} alt={alt} />

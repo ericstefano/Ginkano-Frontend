@@ -52,10 +52,13 @@ const SectionContent = ({
 }: ContentProps) => {
   return (
     <div
-      className={clsx('flex gap-6 flex-wrap <lg:justify-center', {
-        'flex-1': grow,
+      className={clsx(
+        'flex flex-wrap',
+        {
+          'flex-1': grow,
+        },
         className,
-      })}
+      )}
       {...props}
     >
       {children}

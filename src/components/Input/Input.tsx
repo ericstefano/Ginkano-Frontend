@@ -40,7 +40,7 @@ export const Input = forwardRef<HTMLInputElement | null, InputProps>(
           {label}
           <span className='text-red-300'>{required ? '*' : null}</span>
         </label>
-        <div className='flex mb-1'>
+        <div className='flex mb-1 focus-within:(outline-violet-200 outline outline-2 outline-offset-2) rounded-2.5'>
           {leftAdornment ? (
             <span className='h-9 bg-neutral-100 rounded-l-2.5 flex'>
               {leftAdornment}
@@ -48,7 +48,7 @@ export const Input = forwardRef<HTMLInputElement | null, InputProps>(
           ) : undefined}
           <input
             className={clsx(
-              'h-9 w-full focus-visible:(outline-violet-200 outline outline-2 outline-offset-2)',
+              'h-9 w-full focus:outline-none',
               {
                 'rounded-l-2.5 pl-2': !leftAdornment,
                 'rounded-r-2.5 pr-2': !rightAdornment,

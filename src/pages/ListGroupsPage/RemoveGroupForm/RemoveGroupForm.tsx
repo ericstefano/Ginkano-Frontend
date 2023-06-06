@@ -23,10 +23,15 @@ export const RemoveGroupForm = ({
         Esta ação não pode ser desfeita
       </p>
       <div className='flex justify-end gap-2'>
-        <Button size='sm' type='button' onClick={onNoButtonClick}>
+        <Button
+          size='sm'
+          type='button'
+          variant='outlined'
+          onClick={onNoButtonClick}
+        >
           Não
         </Button>
-        <Button size='sm' type='submit' variant='error' loading={loading}>
+        <Button size='sm' type='submit' color='error' loading={loading}>
           Sim
         </Button>
       </div>
