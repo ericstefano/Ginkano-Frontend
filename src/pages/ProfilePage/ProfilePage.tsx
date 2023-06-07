@@ -1,14 +1,19 @@
-import { BaseCard, Button, Section } from '@/components';
+import { useState } from 'react';
+import { EditProfileForm } from './EditProfileForm/EditProfileForm';
+import { BaseCard, Button, Modal, Section } from '@/components';
 import { useAuthContext } from '@/contexts/auth';
 
 export default function ProfilePage() {
   const { user } = useAuthContext();
+  const [isEditing, setIsEditing] = useState(false);
 
   return (
     <Section.Root>
       <div className='mb-6 flex justify-between'>
         <Section.Subtitle>Seu perfil:</Section.Subtitle>
-        <Button size='sm'>Editar perfil</Button>
+        <Button size='sm' onClick={() => setIsEditing(true)}>
+          Editar perfil
+        </Button>
       </div>
 
       <Section.Content>
@@ -31,6 +36,13 @@ export default function ProfilePage() {
           </BaseCard.Container>
         </BaseCard.Root>
       </Section.Content>
+      <Modal
+        open={isEditing}
+        onOpenChange={() => setIsEditing(false)}
+        title='Editar perfil'
+      >
+        <EditProfileForm onSubmit={(data) => console.log(data)} user={user} />
+      </Modal>
     </Section.Root>
   );
 }

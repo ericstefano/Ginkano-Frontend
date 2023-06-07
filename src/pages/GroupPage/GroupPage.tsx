@@ -1,6 +1,11 @@
 import { useParams } from 'react-router-dom';
+import { Section } from '@/components';
 
 export default function GroupPage() {
   const { token } = useParams();
-  return <div>{token}</div>;
+  return (
+    <Section.Root>
+      <Section.Content>{token}</Section.Content>
+    </Section.Root>
+  );
 }
