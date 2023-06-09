@@ -42,7 +42,7 @@ export const CreateGroupForm = ({
       />
       <div className='flex justify-end'>
         <Button size='sm' loading={loading}>
-          Criar
+          Enviar
         </Button>
       </div>
     </form>

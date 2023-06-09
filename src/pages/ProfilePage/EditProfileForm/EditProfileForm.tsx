@@ -8,17 +8,26 @@ import { Button, Input } from '@/components';
 import { User } from '@/types';
 
 type EditProfileFormProps = {
-  onSubmit: () => void;
+  onSubmit: (data: EditProfileFormData) => void;
   user: User;
+  loading: boolean;
 };
-export const EditProfileForm = ({ onSubmit, user }: EditProfileFormProps) => {
+export const EditProfileForm = ({
+  onSubmit,
+  user,
+  loading,
+}: EditProfileFormProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<EditProfileFormData>({
     resolver: zodResolver(editProfileFormSchema),
-    defaultValues: { firstname: user.firstname },
+    defaultValues: {
+      firstname: user.firstname,
+      lastname: user.lastname,
+      username: user.username,
+    },
   });
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -46,7 +55,7 @@ export const EditProfileForm = ({ onSubmit, user }: EditProfileFormProps) => {
         error={!!errors.username}
         {...register('username')}
       />
-      <Button size='sm' className='ml-auto'>
+      <Button size='sm' className='ml-auto' loading={loading}>
         Enviar
       </Button>
     </form>

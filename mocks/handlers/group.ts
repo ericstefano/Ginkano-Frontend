@@ -2,12 +2,30 @@ import { rest } from 'msw';
 import { groupDb } from '../data/groupDb';
 import { generateHexId, getBaseUrl } from './utils';
 import {
+  GROUP_BASE_URL,
   GROUP_CREATE_URL,
   GROUP_DELETE_URL,
   GROUP_EDIT_URL,
   GROUP_GET_ALL_URL,
 } from '@/api/group';
 export const group = [
+  rest.post(getBaseUrl(GROUP_BASE_URL), async (req, res, ctx) => {
+    const json = await req.json();
+    const group = groupDb.group.findFirst({
+      where: { token: { equals: json.token } },
+    });
+    if (group) {
+      return res(
+        ctx.status(200),
+        ctx.json({
+          data: group,
+        }),
+      );
+    } else {
+      return res(ctx.status(400));
+    }
+  }),
+
   rest.get(getBaseUrl(GROUP_GET_ALL_URL), async (_req, res, ctx) => {
     const groups = groupDb.group.getAll();
     return res(

@@ -7,7 +7,7 @@ const SectionRoot = ({ children, className, ...props }: RootProps) => {
   return (
     <section
       className={clsx(
-        'mx-auto p-6 lg:px-12 max-w-6xl min-h-[calc(100vh-3.5rem)] flex flex-col',
+        'mx-auto p-6 lg:px-12 max-w-6xl min-h-[calc(100vh-5.5rem)] flex flex-col',
         className,
       )}
       {...props}

@@ -17,7 +17,7 @@ import { getItem, removeItem, setItem } from '@/services/localStorage';
 import { LOCALSTORAGE_TOKEN_KEY } from '@/constants/keys';
 import { queryClient } from '@/providers';
 
-const USER_QUERY_KEY = 'user';
+export const USER_QUERY_KEY = 'user';
 
 type AuthContextValue = {
   user: User | undefined;

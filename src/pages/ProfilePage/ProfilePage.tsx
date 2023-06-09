@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import { EditProfileForm } from './EditProfileForm/EditProfileForm';
+import { useEditProfile } from './useEditProfile';
 import { BaseCard, Button, Modal, Section } from '@/components';
 import { useAuthContext } from '@/contexts/auth';
+import { User } from '@/types';
 
 export default function ProfilePage() {
-  const { user } = useAuthContext();
   const [isEditing, setIsEditing] = useState(false);
+  const { user } = useAuthContext();
+  const { mutate, isLoading } = useEditProfile(() => setIsEditing(false));
 
   return (
     <Section.Root>
@@ -41,7 +44,11 @@ export default function ProfilePage() {
         onOpenChange={() => setIsEditing(false)}
         title='Editar perfil'
       >
-        <EditProfileForm onSubmit={(data) => console.log(data)} user={user} />
+        <EditProfileForm
+          onSubmit={(data) => mutate({ ...data })}
+          user={user as User}
+          loading={isLoading}
+        />
       </Modal>
     </Section.Root>
   );

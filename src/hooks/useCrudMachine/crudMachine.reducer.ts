@@ -4,31 +4,31 @@ export type CrudMachineState = {
 };
 
 type Action =
-  | { type: 'idle' }
-  | { type: 'creating' }
-  | { type: 'updating'; id: string }
-  | { type: 'removing'; id: string };
+  | { status: 'idle' }
+  | { status: 'creating' }
+  | { status: 'updating'; id: string }
+  | { status: 'removing'; id: string };
 
 export const initialState: CrudMachineState = { id: '', status: 'idle' };
 
 export function reducer(_state: CrudMachineState, action: Action) {
-  switch (action.type) {
+  switch (action.status) {
     case 'idle':
       return initialState;
     case 'creating':
       return {
         id: '',
-        status: action.type,
+        status: action.status,
       };
     case 'updating':
       return {
         id: action.id,
-        status: action.type,
+        status: action.status,
       };
     case 'removing':
       return {
         id: action.id,
-        status: action.type,
+        status: action.status,
       };
     default:
       throw new Error('Unknown action');

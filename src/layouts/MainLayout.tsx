@@ -1,6 +1,5 @@
-// eslint-disable-next-line import/order
 import { Outlet } from 'react-router-dom';
-import { Header, Footer, Breadcrumbs } from '@/components';
+import { Header, Breadcrumbs } from '@/components';
 
 export const MainLayout = () => {
   return (
@@ -8,7 +7,6 @@ export const MainLayout = () => {
       <Header />
       <Breadcrumbs />
       <Outlet />
-      <Footer />
     </main>
   );
 };

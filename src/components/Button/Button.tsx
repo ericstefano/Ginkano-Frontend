@@ -65,7 +65,7 @@ export const Button = ({
   return (
     <button
       className={clsx(
-        'relative rounded-md flex items-center justify-center shadow-sm border',
+        'relative rounded-md flex items-center justify-center shadow-sm border whitespace-nowrap',
         'transition-all active:(translate-y-0.5 scale-99) hover:(scale-103 shadow)',
         { 'pointer-events-none opacity-70': loading },
         { 'w-full': fullWidth },

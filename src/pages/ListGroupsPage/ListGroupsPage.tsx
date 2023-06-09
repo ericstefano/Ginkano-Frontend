@@ -5,6 +5,8 @@ import { RemoveGroupForm } from './RemoveGroupForm/';
 import { useCreateGroup } from './useCreateGroup';
 import { useUpdateGroup } from './useUpdateGroup';
 import { useRemoveGroup } from './useRemoveGroup';
+import { GroupMachineState, useGroupMachine } from './useGroupMachine';
+import { ShareGroupSection } from './ShareGroupSection';
 import {
   Button,
   NoDataMessage,
@@ -15,14 +17,15 @@ import {
 } from '@/components';
 import { PlusCircle } from '@/components/icons';
 import { useAuthContext } from '@/contexts/auth';
-import { useCrudMachine, CrudMachineState } from '@/hooks/useCrudMachine';
 import { Group } from '@/api/group';
+import placeholderImg from '@/assets/placeholder_view.png';
 
-const titleMap: Record<CrudMachineState['status'], string> = {
+const titleMap: Record<GroupMachineState['status'], string> = {
   idle: '',
-  creating: 'Criar grupo',
+  creating: 'Novo grupo',
   updating: 'Editar grupo',
   removing: 'Remover grupo',
+  sharing: 'Compartilhar grupo',
 };
 
 export default function ListGroupsPage() {
@@ -34,11 +37,13 @@ export default function ListGroupsPage() {
     isCreating,
     isUpdating,
     isRemoving,
+    isSharing,
     dispatchCreate,
     dispatchUpdate,
     dispatchRemove,
     dispatchIdle,
-  } = useCrudMachine();
+    dispatchSharing,
+  } = useGroupMachine();
 
   const {
     isLoading,
@@ -91,7 +96,8 @@ export default function ListGroupsPage() {
                 subtitle={group.endereco}
                 onUpdateButtonClick={() => dispatchUpdate(group.token)}
                 onDeleteButtonClick={() => dispatchRemove(group.token)}
-                src='https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png'
+                onShareButtonClick={() => dispatchSharing(group.token)}
+                src={placeholderImg}
                 alt='placeholder'
               />
             ))
@@ -138,6 +144,8 @@ export default function ListGroupsPage() {
             onNoButtonClick={dispatchIdle}
           />
         ) : null}
+
+        {isSharing ? <ShareGroupSection group={currentGroup} /> : null}
       </Modal>
     </Section.Root>
   );

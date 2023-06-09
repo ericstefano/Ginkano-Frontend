@@ -1,5 +1,5 @@
 import * as RadixDropdownMenu from '@radix-ui/react-dropdown-menu';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AvatarButton } from '../AvatarButton';
 import { Logout } from '../icons/Logout';
 import { FileText } from '../icons/FileText';
@@ -23,6 +23,7 @@ const DropdownItem = ({
 
 export const DropdownMenu = () => {
   const { logout, user } = useAuthContext();
+  const navigate = useNavigate();
 
   return (
     <RadixDropdownMenu.Root>
@@ -41,13 +42,18 @@ export const DropdownMenu = () => {
             </Link>
           </DropdownItem>
           <DropdownItem asChild>
-            <Link to='/terms' draggable='false'>
+            <Link to='/terms-and-conditions' draggable='false'>
               <FileText className='h-4.5 w-4.5' />
               Termos e condições
             </Link>
           </DropdownItem>
           <RadixDropdownMenu.Separator className='bg-gray-300 h-px my-1.5' />
-          <DropdownItem onClick={() => logout()}>
+          <DropdownItem
+            onClick={() => {
+              navigate('/');
+              logout();
+            }}
+          >
             <Logout className='h-4.5 w-4.5' />
             Logout
           </DropdownItem>
