@@ -8,8 +8,17 @@ import { lazy } from 'react';
 
 const LazyLoginPage = lazy(() => import('@/pages/LoginPage/LoginPage'));
 const LazySignupPage = lazy(() => import('@/pages/SignupPage/SignupPage'));
+const LazyTermsAndConditionsPage = lazy(
+  () => import('@/pages/TermsAndConditionsPage/TermsAndConditionsPage'),
+);
+const LazyListGroupDonationsPage = lazy(
+  () => import('@/pages/ListGroupDonationsPage/ListGroupDonationsPage'),
+);
+
+const LazyFirstPage = lazy(() => import('@/pages/FirstPage/FirstPage'));
 
 const routes: RouteObject[] = [
+  { path: '/', element: <LazyFirstPage /> },
   {
     path: '/signup',
     element: <LazySignupPage />,
@@ -19,8 +28,14 @@ const routes: RouteObject[] = [
     element: <LazyLoginPage />,
   },
   {
+    path: '/terms-and-conditions',
+    element: <LazyTermsAndConditionsPage />,
+  },
+  { path: 'group/:token', element: <LazyListGroupDonationsPage /> },
+
+  {
     path: '/*',
-    element: <Navigate to='/login' replace />,
+    element: <Navigate to='/' replace />,
   },
 ];
 

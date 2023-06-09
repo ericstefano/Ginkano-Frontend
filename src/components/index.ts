@@ -1,6 +1,7 @@
 export * from './AvatarButton';
 export * from './BaseCard';
 export * from './Button';
+export * from './Breadcrumbs';
 export * from './Checkbox';
 export * from './DropdownMenu';
 export * from './Footer';

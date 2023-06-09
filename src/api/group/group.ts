@@ -12,6 +12,7 @@ import {
   EditGroupParams,
   GetAllGroupsResponseDto,
   GetGroupByTokenParams,
+  GetGroupByTokenResponseDto,
 } from './group.types';
 
 export async function createGroup(data: CreateGroupParams): Promise<void> {
@@ -36,7 +37,7 @@ export async function getAllGroups(): Promise<GetAllGroupsResponseDto> {
 
 export async function getGroupByToken(
   data: GetGroupByTokenParams,
-): Promise<void> {
+): Promise<GetGroupByTokenResponseDto> {
   const res = await client.post(GROUP_BASE_URL, data);
   return res.data;
 }

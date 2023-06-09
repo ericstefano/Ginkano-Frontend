@@ -1,3 +1,4 @@
+export * from './ArrowLeft';
 export * from './Check';
 export * from './ClosedEye';
 export * from './Edit';
@@ -5,6 +6,7 @@ export * from './Eye';
 export * from './FileText';
 export * from './LoaderIcon';
 export * from './LogoType';
+export * from './Share';
 export * from './Logout';
 export * from './PlusCircle';
 export * from './Trash';

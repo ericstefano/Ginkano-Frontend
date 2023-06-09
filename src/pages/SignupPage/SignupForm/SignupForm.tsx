@@ -102,7 +102,7 @@ export const SignupForm = () => {
               <span>
                 Eu li e concordo com os{' '}
                 <Link
-                  to='#'
+                  to='/terms-and-conditions'
                   className='cursor-pointer text-purple-50 underline transition-all hover:( drop-shadow-md text-violet-300)'
                 >
                   termos e condições

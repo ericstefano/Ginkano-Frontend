@@ -7,7 +7,7 @@ const SectionRoot = ({ children, className, ...props }: RootProps) => {
   return (
     <section
       className={clsx(
-        'mx-auto p-6 lg:px-12 max-w-6xl min-h-[calc(100vh-3.5rem)] flex flex-col',
+        'mx-auto p-6 lg:px-12 max-w-6xl min-h-[calc(100vh-5.5rem)] flex flex-col',
         className,
       )}
       {...props}
@@ -52,10 +52,13 @@ const SectionContent = ({
 }: ContentProps) => {
   return (
     <div
-      className={clsx('flex gap-6 flex-wrap <lg:justify-center', {
-        'flex-1': grow,
+      className={clsx(
+        'flex flex-wrap',
+        {
+          'flex-1': grow,
+        },
         className,
-      })}
+      )}
       {...props}
     >
       {children}

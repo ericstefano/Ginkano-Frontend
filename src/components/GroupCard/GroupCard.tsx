@@ -1,6 +1,7 @@
 import { ComponentPropsWithoutRef, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { BaseCard } from '../BaseCard';
+import { Share } from '../icons';
 import { Edit } from '../icons/Edit';
 import { Trash } from '../icons/Trash';
 
@@ -12,6 +13,7 @@ export type GroupCardProps = {
   alt: string;
   onUpdateButtonClick: () => void;
   onDeleteButtonClick: () => void;
+  onShareButtonClick: () => void;
 } & ComponentPropsWithoutRef<'div'>;
 
 export const GroupCard = ({
@@ -22,6 +24,7 @@ export const GroupCard = ({
   className,
   onUpdateButtonClick,
   onDeleteButtonClick,
+  onShareButtonClick,
   subtitle,
   ...props
 }: GroupCardProps) => {
@@ -31,7 +34,7 @@ export const GroupCard = ({
     <BaseCard.Root className={className}>
       <LinkOrDiv to={to as string}>
         <BaseCard.Container
-          className='hover:(shadow-sm scale-100.5)'
+          className='hover:(shadow-sm scale-100.5) w-xs'
           {...props}
         >
           <BaseCard.Image src={src} alt={alt} />
@@ -43,6 +46,12 @@ export const GroupCard = ({
           </BaseCard.Description>
         </BaseCard.Container>
       </LinkOrDiv>
+      <BaseCard.FloatButton
+        className='top-2 right-24 bg-blue-400'
+        onClick={onShareButtonClick}
+      >
+        <Share className='h-5 w-5' />
+      </BaseCard.FloatButton>
       <BaseCard.FloatButton
         className='top-2 right-13 bg-red-400'
         onClick={onDeleteButtonClick}

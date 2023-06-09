@@ -19,7 +19,7 @@ const CardContainer = ({
   return (
     <div
       className={clsx(
-        'rounded-3 w-xs border border-2 p-4 transition-all select-none h-full',
+        'rounded-3 border border-2 p-4 transition-all select-none h-full',
         className,
       )}
       {...props}

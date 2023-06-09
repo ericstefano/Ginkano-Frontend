@@ -25,4 +25,6 @@ export type Group = {
   endereco: string;
 };
 
+export type GetGroupByTokenResponseDto = { data: Group };
+
 export type GetAllGroupsResponseDto = { data: { group: Group }[] };
