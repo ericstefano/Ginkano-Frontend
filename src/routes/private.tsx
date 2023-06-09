@@ -11,8 +11,8 @@ const LazyListGroupsPage = lazy(
   () => import('@/pages/ListGroupsPage/ListGroupsPage'),
 );
 const LazyProfilePage = lazy(() => import('@/pages/ProfilePage/ProfilePage'));
-const LazyGroupDonationsPage = lazy(
-  () => import('@/pages/GroupDonationsPage/GroupDonationsPage'),
+const LazyListGroupDonationsPage = lazy(
+  () => import('@/pages/ListGroupDonationsPage/ListGroupDonationsPage'),
 );
 const LazyTermsAndConditionsPage = lazy(
   () => import('@/pages/TermsAndConditionsPage/TermsAndConditionsPage'),
@@ -28,7 +28,7 @@ const routes: RouteObject[] = [
         element: <LazyListGroupsPage />,
       },
       { path: 'profile', element: <LazyProfilePage /> },
-      { path: 'group/:token', element: <LazyGroupDonationsPage /> },
+      { path: 'group/:token', element: <LazyListGroupDonationsPage /> },
       {
         path: '/terms-and-conditions',
         element: <LazyTermsAndConditionsPage />,

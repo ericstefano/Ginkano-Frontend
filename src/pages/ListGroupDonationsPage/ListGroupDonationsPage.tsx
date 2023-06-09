@@ -1,9 +1,15 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { useLayoutEffect, useState } from 'react';
+import { useLayoutEffect } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import { CreateDonationForm } from './CreateDonationForm/CreateDonationForm';
 import { useQueryGroup } from './useQueryGroup';
 import { useQueryDonations } from './useQueryDonations';
+import { DonationMachineState, useDonationMachine } from './useDonationMachine';
+import { useCreateDonation } from './useCreateDonation';
+import { UpdateDonationForm } from './UpdateDonationForm/UpdateDonationForm';
+import { useUpdateDonation } from './useUpdateDonation';
+import { useRemoveDonation } from './useRemoveDonation';
+import { RemoveDonationForm } from './RemoveDonationForm';
 import { Button, Modal, NoDataMessage, Section } from '@/components';
 import { PlusCircle } from '@/components/icons';
 import { DonationCard } from '@/components/DonationCard';
@@ -12,11 +18,18 @@ import { DonationCardLoader } from '@/components/DonationCardLoader/DonationCard
 import { useAuthContext } from '@/contexts/auth';
 import { User } from '@/types';
 import { capitalizeAll } from '@/utils/string';
+import { Donation } from '@/api/donation';
 
-export default function GroupDonationsPage() {
+const titleMap: Record<DonationMachineState['status'], string> = {
+  idle: '',
+  creating: 'Nova doação',
+  updating: 'Editar doação',
+  removing: 'Remover doação',
+};
+
+export default function ListGroupDonationsPage() {
   const { token } = useParams();
   const { user } = useAuthContext();
-  const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
   const {
@@ -31,7 +44,32 @@ export default function GroupDonationsPage() {
     refetch: retryDonations,
   } = useQueryDonations(!!token);
 
-  const hasDonations = !!donations;
+  const {
+    state,
+    dispatchCreate,
+    dispatchIdle,
+    dispatchRemove,
+    dispatchUpdate,
+    isCreating,
+    isIdle,
+    isRemoving,
+    isUpdating,
+  } = useDonationMachine();
+
+  const { mutate: createDonation, isLoading: isCreateLoading } =
+    useCreateDonation(dispatchIdle);
+
+  const { mutate: updateDonation, isLoading: isUpdateLoading } =
+    useUpdateDonation(dispatchIdle);
+
+  const { mutate: removeDonation, isLoading: isRemoveLoading } =
+    useRemoveDonation(dispatchIdle);
+
+  const hasDonations = !!donations && donations?.length;
+
+  const currentDonation = donations?.find(
+    (donation) => donation.token === state.id,
+  ) as Donation;
 
   useLayoutEffect(() => {
     if (!token || group || isGroupSuccess || isGroupLoading) {
@@ -52,7 +90,7 @@ export default function GroupDonationsPage() {
         {user ? (
           <Button
             size='sm'
-            onClick={() => setIsOpen(true)}
+            onClick={dispatchCreate}
             leftIcon={<PlusCircle className='h-5 w-5' />}
           >
             Nova doação
@@ -77,8 +115,8 @@ export default function GroupDonationsPage() {
                 donationQuantity={donation.quantidade}
                 donationPoints={donation.pontos}
                 donationPerson={capitalizeAll(donation.doador)}
-                onDeleteButtonClick={() => console.log('oi')}
-                onUpdateButtonClick={() => console.log('oi')}
+                onRemoveButtonClick={() => dispatchRemove(donation.token)}
+                onUpdateButtonClick={() => dispatchUpdate(donation.token)}
                 user={user as User}
               />
             ))
@@ -95,11 +133,37 @@ export default function GroupDonationsPage() {
         )}
       </Section.Content>
       <Modal
-        title='Nova doação'
-        onOpenChange={() => setIsOpen(false)}
-        open={isOpen}
+        title={titleMap[state.status]}
+        onOpenChange={dispatchIdle}
+        open={!isIdle}
       >
-        <CreateDonationForm onSubmit={(data) => console.log(data)} />
+        {isCreating ? (
+          <CreateDonationForm
+            onSubmit={(data) => createDonation(data)}
+            loading={isCreateLoading}
+          />
+        ) : null}
+
+        {isUpdating ? (
+          <UpdateDonationForm
+            loading={isUpdateLoading}
+            donation={currentDonation}
+            onSubmit={(data) =>
+              updateDonation({
+                ...data,
+                doador: capitalizeAll(data.doador),
+                token: currentDonation.token,
+              })
+            }
+          />
+        ) : null}
+        {isRemoving ? (
+          <RemoveDonationForm
+            loading={isRemoveLoading}
+            onNoButtonClick={dispatchIdle}
+            onSubmit={() => removeDonation(currentDonation)}
+          />
+        ) : null}
       </Modal>
     </Section.Root>
   );

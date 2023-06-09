@@ -1,7 +1,7 @@
 import { useReducer } from 'react';
-import { initialState, reducer } from './crudMachine.reducer';
+import { initialState, reducer } from './donationMachine.reducer';
 
-export const useCrudMachine = () => {
+export const useDonationMachine = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   return {
     state,

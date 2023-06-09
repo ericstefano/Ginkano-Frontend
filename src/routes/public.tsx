@@ -11,8 +11,8 @@ const LazySignupPage = lazy(() => import('@/pages/SignupPage/SignupPage'));
 const LazyTermsAndConditionsPage = lazy(
   () => import('@/pages/TermsAndConditionsPage/TermsAndConditionsPage'),
 );
-const LazyGroupDonationsPage = lazy(
-  () => import('@/pages/GroupDonationsPage/GroupDonationsPage'),
+const LazyListGroupDonationsPage = lazy(
+  () => import('@/pages/ListGroupDonationsPage/ListGroupDonationsPage'),
 );
 
 const LazyFirstPage = lazy(() => import('@/pages/FirstPage/FirstPage'));
@@ -31,7 +31,7 @@ const routes: RouteObject[] = [
     path: '/terms-and-conditions',
     element: <LazyTermsAndConditionsPage />,
   },
-  { path: 'group/:token', element: <LazyGroupDonationsPage /> },
+  { path: 'group/:token', element: <LazyListGroupDonationsPage /> },
 
   {
     path: '/*',

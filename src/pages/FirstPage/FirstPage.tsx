@@ -13,7 +13,7 @@ export default function FirstPage() {
     }
   };
   return (
-    <div className='flex justify-center items-center flex-col h-screen'>
+    <div className='flex justify-center items-center flex-col h-screen px-4'>
       <h1 className='md:text-5xl text-4xl font-bold mb-6 text-center drop-shadow'>
         Boas-vindas ao Ginkano
       </h1>

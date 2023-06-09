@@ -7,18 +7,18 @@ export const createDonationFormSchema = z.object({
     .regex(/^[\p{L}\s]+$/u, 'O campo deve conter somente letras.')
     .toLowerCase()
     .trim(),
-  donator: z
+  doador: z
     .string()
     .nonempty('O campo deve ser preenchido.')
     .regex(/^[\p{L}\s]+$/u, 'O campo deve conter somente letras.')
     .toLowerCase()
     .trim(),
-  quantity: z.coerce
+  quantidade: z.coerce
     .number({
       errorMap: () => ({ message: 'O campo deve ser um número.' }),
     })
     .gt(0, 'O campo deve ser maior que zero.'),
-  points: z.coerce
+  pontos: z.coerce
     .number({
       errorMap: () => ({ message: 'O campo deve ser um número.' }),
     })

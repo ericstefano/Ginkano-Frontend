@@ -8,9 +8,13 @@ import { Button, Input } from '@/components';
 
 type CreateDonationFormProps = {
   onSubmit: (data: CreateDonationFormData) => void;
+  loading: boolean;
 };
 
-export const CreateDonationForm = ({ onSubmit }: CreateDonationFormProps) => {
+export const CreateDonationForm = ({
+  onSubmit,
+  loading,
+}: CreateDonationFormProps) => {
   const {
     register,
     handleSubmit,
@@ -32,27 +36,27 @@ export const CreateDonationForm = ({ onSubmit }: CreateDonationFormProps) => {
         label='Doador(a)'
         className='mb-2'
         variant='secondary'
-        description={errors.donator?.message}
-        error={!!errors.donator}
-        {...register('donator')}
+        description={errors.doador?.message}
+        error={!!errors.doador}
+        {...register('doador')}
       />
       <Input
         label='Quantidade'
         className='mb-2'
         variant='secondary'
-        description={errors.quantity?.message}
-        error={!!errors.quantity}
-        {...register('quantity')}
+        description={errors.quantidade?.message}
+        error={!!errors.quantidade}
+        {...register('quantidade')}
       />
       <Input
         label='Pontuação'
         className='mb-4'
         variant='secondary'
-        description={errors.points?.message}
-        error={!!errors.points}
-        {...register('points')}
+        description={errors.pontos?.message}
+        error={!!errors.pontos}
+        {...register('pontos')}
       />
-      <Button size='sm' className='ml-auto'>
+      <Button size='sm' className='ml-auto' loading={loading}>
         Enviar
       </Button>
     </form>

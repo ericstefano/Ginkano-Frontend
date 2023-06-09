@@ -47,7 +47,7 @@ donationDb.donation.create({
 });
 
 donationDb.donation.create({
-  doador: 'luciana',
+  doador: 'luciana silva',
   quantidade: 120,
   pontos: 145,
   item: 'vidro',

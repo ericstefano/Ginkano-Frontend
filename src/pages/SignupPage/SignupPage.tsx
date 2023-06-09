@@ -10,7 +10,7 @@ export default function SignUpPage() {
       <div className='flex gap-4 mt-6 items-center'>
         <p className='text-lg text-neutral-800'>É visitante?</p>
         <Button size='sm' variant='outlined' onClick={() => navigate('/')}>
-          Ver grupos
+          Ver relatórios
         </Button>
       </div>
     </div>

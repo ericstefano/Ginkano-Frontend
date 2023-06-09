@@ -1,4 +1,4 @@
-export type CrudMachineState = {
+export type DonationMachineState = {
   id: string;
   status: 'idle' | 'creating' | 'updating' | 'removing';
 };
@@ -9,9 +9,9 @@ type Action =
   | { status: 'updating'; id: string }
   | { status: 'removing'; id: string };
 
-export const initialState: CrudMachineState = { id: '', status: 'idle' };
+export const initialState: DonationMachineState = { id: '', status: 'idle' };
 
-export function reducer(_state: CrudMachineState, action: Action) {
+export function reducer(_state: DonationMachineState, action: Action) {
   switch (action.status) {
     case 'idle':
       return initialState;

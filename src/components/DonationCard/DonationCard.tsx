@@ -11,7 +11,7 @@ type DonationCardProps = {
   donationPerson: string;
   donationPoints: number;
   user: User;
-  onDeleteButtonClick: () => void;
+  onRemoveButtonClick: () => void;
   onUpdateButtonClick: () => void;
 };
 export const DonationCard = ({
@@ -21,7 +21,7 @@ export const DonationCard = ({
   donationQuantity,
   donationPerson,
   donationPoints,
-  onDeleteButtonClick,
+  onRemoveButtonClick,
   onUpdateButtonClick,
   user,
 }: DonationCardProps) => {
@@ -39,11 +39,11 @@ export const DonationCard = ({
           </BaseCard.Subtitle>
           <BaseCard.Subtitle>
             <span className='text-green-500 font-600'>Quantidade:</span>{' '}
-            {donationQuantity} unidades
+            {donationQuantity} unidade(s)
           </BaseCard.Subtitle>
           <BaseCard.Subtitle>
             <span className='text-blue-500 font-600'>Pontuação:</span>{' '}
-            {donationPoints} pontos
+            {donationPoints} ponto(s)
           </BaseCard.Subtitle>
         </div>
       </BaseCard.Container>
@@ -51,7 +51,7 @@ export const DonationCard = ({
         <Fragment>
           <BaseCard.FloatButton
             className='top-2 right-13 bg-red-400'
-            onClick={onDeleteButtonClick}
+            onClick={onRemoveButtonClick}
           >
             <Trash className='h-5 w-5' />
           </BaseCard.FloatButton>
