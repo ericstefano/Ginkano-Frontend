@@ -42,7 +42,7 @@ export default function ListGroupDonationsPage() {
     data: donations,
     isLoading: isDonationLoading,
     refetch: retryDonations,
-  } = useQueryDonations(!!token);
+  } = useQueryDonations(token as string);
 
   const {
     state,
@@ -68,7 +68,7 @@ export default function ListGroupDonationsPage() {
   const hasDonations = !!donations && donations?.length;
 
   const currentDonation = donations?.find(
-    (donation) => donation.token === state.id,
+    (donation) => String(donation.code) === state.id,
   ) as Donation;
 
   useLayoutEffect(() => {
@@ -110,13 +110,17 @@ export default function ListGroupDonationsPage() {
               <DonationCard
                 src={placeholderImg}
                 alt='placeholder'
-                key={donation.token}
+                key={String(donation.code + new Date().getTime())}
                 donationItemName={donation.item}
                 donationQuantity={donation.quantidade}
                 donationPoints={donation.pontos}
                 donationPerson={capitalizeAll(donation.doador)}
-                onRemoveButtonClick={() => dispatchRemove(donation.token)}
-                onUpdateButtonClick={() => dispatchUpdate(donation.token)}
+                onRemoveButtonClick={() =>
+                  dispatchRemove(String(donation.code))
+                }
+                onUpdateButtonClick={() =>
+                  dispatchUpdate(String(donation.code))
+                }
                 user={user as User}
               />
             ))
@@ -139,7 +143,9 @@ export default function ListGroupDonationsPage() {
       >
         {isCreating ? (
           <CreateDonationForm
-            onSubmit={(data) => createDonation(data)}
+            onSubmit={(data) =>
+              createDonation({ ...data, token: token as string })
+            }
             loading={isCreateLoading}
           />
         ) : null}
@@ -153,6 +159,7 @@ export default function ListGroupDonationsPage() {
                 ...data,
                 doador: capitalizeAll(data.doador),
                 token: currentDonation.token,
+                code: currentDonation.code,
               })
             }
           />

@@ -7,6 +7,7 @@ import {
 } from './url.constants';
 import {
   CreateDonationParams,
+  MutateDonationResponseDto,
   DeleteDonationParams,
   EditDonationParams,
   GetAllDonationsResponseDto,
@@ -14,24 +15,28 @@ import {
 
 export async function createDonation(
   data: CreateDonationParams,
-): Promise<void> {
+): Promise<MutateDonationResponseDto> {
   const res = await client.post(DONATION_CREATE_URL, data);
   return res.data;
 }
 
 export async function deleteDonation(
   data: DeleteDonationParams,
-): Promise<void> {
+): Promise<MutateDonationResponseDto> {
   const res = await client.post(DONATION_DELETE_URL, data);
   return res.data;
 }
 
-export async function editDonation(data: EditDonationParams): Promise<void> {
+export async function editDonation(
+  data: EditDonationParams,
+): Promise<MutateDonationResponseDto> {
   const res = await client.post(DONATION_EDIT_URL, data);
   return res.data;
 }
 
-export async function getAllDonations(): Promise<GetAllDonationsResponseDto> {
-  const res = await client.get(DONATION_GET_ALL_URL);
+export async function getAllDonations(
+  token: string,
+): Promise<GetAllDonationsResponseDto> {
+  const res = await client.get(DONATION_GET_ALL_URL, { headers: { token } });
   return res.data;
 }

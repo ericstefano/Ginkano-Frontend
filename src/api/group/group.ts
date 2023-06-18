@@ -11,7 +11,6 @@ import {
   DeleteGroupParams,
   EditGroupParams,
   GetAllGroupsResponseDto,
-  GetGroupByTokenParams,
   GetGroupByTokenResponseDto,
 } from './group.types';
 
@@ -40,8 +39,8 @@ export async function getAllGroups(): Promise<GetAllGroupsResponseDto> {
 }
 
 export async function getGroupByToken(
-  data: GetGroupByTokenParams,
+  token: string,
 ): Promise<GetGroupByTokenResponseDto> {
-  const res = await client.post(GROUP_BASE_URL, data);
+  const res = await client.get(GROUP_BASE_URL + '/', { headers: { token } });
   return res.data;
 }

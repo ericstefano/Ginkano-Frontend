@@ -7,7 +7,7 @@ export const GROUP_QUERY_KEY = 'group';
 
 export const useQueryGroup = (token: string, user: User) => {
   return useQuery({
-    queryFn: () => getGroupByToken({ token }),
+    queryFn: () => getGroupByToken(token),
     queryKey: [GROUP_QUERY_KEY, token],
     enabled: !!token,
     onError: () => {

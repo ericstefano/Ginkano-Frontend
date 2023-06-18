@@ -8,13 +8,8 @@ export const useCreateDonation = (onSettled: () => void) => {
   return useMutation({
     mutationFn: createDonation,
     onSuccess: (data) => {
-      queryClient.setQueryData([LIST_DONATIONS_QUERY_KEY], (old) => {
-        return {
-          data: [...old.data, data],
-        };
-      });
+      queryClient.invalidateQueries([data.token, LIST_DONATIONS_QUERY_KEY]);
     },
-
     onError: () =>
       toast.error('Falha ao criar a doação, por favor tente novamente.'),
     onSettled,
