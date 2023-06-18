@@ -15,10 +15,6 @@ export type EditGroupParams = {
   token: string;
 };
 
-export type GetGroupByTokenParams = {
-  token: string;
-};
-
 export type Group = {
   nome: string;
   token: string;

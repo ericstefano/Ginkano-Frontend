@@ -3,6 +3,7 @@ export type CreateDonationParams = {
   quantidade: number;
   pontos: number;
   item: string;
+  token: string;
 };
 
 export type DeleteDonationParams = {
@@ -19,6 +20,15 @@ export type EditDonationParams = {
   pontos: number;
   item: string;
   token: string;
+  code: number;
+};
+
+export type MutateDonationResponseDto = {
+  item: string;
+  doador: string;
+  quantidade: number;
+  pontos: number;
+  token: string;
 };
 
 export type Donation = {
@@ -27,6 +37,7 @@ export type Donation = {
   pontos: number;
   item: string;
   token: string;
+  code: number;
 };
 
-export type GetAllDonationsResponseDto = { data: { donation: Donation }[] };
+export type GetAllDonationsResponseDto = { donations: Donation[] };

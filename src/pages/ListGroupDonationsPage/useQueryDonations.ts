@@ -4,13 +4,13 @@ import toast from '@/services/toast';
 
 export const LIST_DONATIONS_QUERY_KEY = 'listDonations';
 
-export const useQueryDonations = (enabled: boolean) => {
+export const useQueryDonations = (token: string) => {
   return useQuery({
-    queryFn: getAllDonations,
-    queryKey: [LIST_DONATIONS_QUERY_KEY],
-    select: (data) => data.data.map((donation) => donation.donation),
+    queryFn: () => getAllDonations(token),
+    queryKey: [token, LIST_DONATIONS_QUERY_KEY],
+    select: (data) => data.donations,
     onError: () =>
       toast.error('Falha ao buscar as doações, por favor tente novamente.'),
-    enabled,
+    enabled: !!token,
   });
 };
