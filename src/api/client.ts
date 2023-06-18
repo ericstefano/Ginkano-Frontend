@@ -10,7 +10,7 @@ const client = axios.create({
 client.interceptors.request.use(async (config) => {
   const token = getItem(LOCALSTORAGE_TOKEN_KEY);
   if (token && config.headers) {
-    config.headers.Authorization = `Bearer ${token}`;
+    config.headers.Authorization = token;
   }
   return config;
 });

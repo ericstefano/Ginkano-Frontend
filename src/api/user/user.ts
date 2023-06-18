@@ -25,7 +25,7 @@ export async function getAuth(data: GetAuthParams): Promise<AuthResponseDto> {
 }
 
 export async function getUser(): Promise<GetUserResponseDto> {
-  const res = await client.get(USER_BASE_URL);
+  const res = await client.get(USER_BASE_URL + '/');
   return res.data;
 }
 
